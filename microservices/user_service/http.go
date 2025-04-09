@@ -20,7 +20,7 @@ func (s *httpServer) Run() error {
 	router := http.NewServeMux()
 
 	orderService := service.NewOrderService()
-	orderHandler := handler.NewHttpOrdersHandler(orderService)
+	orderHandler := handler.NewHttpUserHandler(orderService)
 	orderHandler.RegisterRouter(router)
 
 	log.Println("Starting server on", s.addr)

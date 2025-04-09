@@ -3,10 +3,9 @@ package types
 import (
 	"context"
 
-	"github.com/santig005/Distributed-Systems-gRPC/services/genproto/user"
+	"github.com/santig005/Distributed-Systems-gRPC/microservices/user_service/genproto/users"
 )
 
-type userService interface {
-	CreateOrder(context.Context, *user.User) error
-	GetOrders(context.Context) []*user.User
+type UserService interface {
+	GetUsers(context.Context) []*user.User
 }

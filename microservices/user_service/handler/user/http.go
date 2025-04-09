@@ -3,8 +3,8 @@ package handler
 import (
 	"net/http"
 
-	"github.com/santig005/Distributed-Systems-gRPC/services/genproto/user"
-	"github.com/santig005/Distributed-Systems-gRPC/common/util"
+	"github.com/santig005/Distributed-Systems-gRPC/microservices/user_service/genproto/users"
+	"github.com/santig005/Distributed-Systems-gRPC/microservices/user_service/util"
 	"github.com/santig005/Distributed-Systems-gRPC/microservices/user_service/types"
 )
 
@@ -12,7 +12,7 @@ type UserHttpHandler struct {
 	userService types.UserService
 }
 
-func NewHttpUserHandler(userService types.userService) *UserHttpHandler {
+func NewHttpUserHandler(userService types.UserService) *UserHttpHandler {
 	handler := &UserHttpHandler{
 		userService: userService,
 	}
@@ -25,15 +25,15 @@ func (h *UserHttpHandler) RegisterRouter(router *http.ServeMux) {
 }
 
 func (h *UserHttpHandler) GetUser(w http.ResponseWriter, r *http.Request) {
-	var req user.GetUserRequest
+	var req user.GetUsersRequest
 	err := util.ParseJSON(r, &req)
 	if err != nil {
 		util.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	user1 := &user.User{
-		UserID:    42,
+	user := &user.User{
+		user_id: 1,
 	}
 
 	err = h.userService.GetUser(r.Context(), user1)
