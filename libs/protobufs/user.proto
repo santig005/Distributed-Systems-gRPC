@@ -1,0 +1,19 @@
+syntax = "proto3";
+package usuario;
+
+option go_package = "github.com/santig05/Distributed-Systems-gRPC/libs/protobufs;user";
+
+service UserService {
+  rpc GetUser (UserRequest) returns (UserResponse);
+  // Puedes extenderlo con CreateUser, UpdateUser, DeleteUser, etc.
+}
+
+message UserRequest {
+  string user_id = 1;
+}
+
+message UserResponse {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
