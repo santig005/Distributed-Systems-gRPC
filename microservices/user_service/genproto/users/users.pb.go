@@ -111,7 +111,8 @@ func (x *GetUsersRequest) GetUserId() int32 {
 
 type GetUserResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Users         []*User                `protobuf:"bytes,1,rep,name=users,proto3" json:"users,omitempty"`
+	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	Users         []*User                `protobuf:"bytes,2,rep,name=users,proto3" json:"users,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -146,6 +147,13 @@ func (*GetUserResponse) Descriptor() ([]byte, []int) {
 	return file_libs_protobufs_users_proto_rawDescGZIP(), []int{2}
 }
 
+func (x *GetUserResponse) GetStatus() string {
+	if x != nil {
+		return x.Status
+	}
+	return ""
+}
+
 func (x *GetUserResponse) GetUsers() []*User {
 	if x != nil {
 		return x.Users
@@ -161,9 +169,10 @@ const file_libs_protobufs_users_proto_rawDesc = "" +
 	"\x04User\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\"*\n" +
 	"\x0fGetUsersRequest\x12\x17\n" +
-	"\auser_id\x18\x01 \x01(\x05R\x06userId\"6\n" +
-	"\x0fGetUserResponse\x12#\n" +
-	"\x05users\x18\x01 \x03(\v2\r.usuario.UserR\x05users2L\n" +
+	"\auser_id\x18\x01 \x01(\x05R\x06userId\"N\n" +
+	"\x0fGetUserResponse\x12\x16\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12#\n" +
+	"\x05users\x18\x02 \x03(\v2\r.usuario.UserR\x05users2L\n" +
 	"\vUserService\x12=\n" +
 	"\aGetUser\x12\x18.usuario.GetUsersRequest\x1a\x18.usuario.GetUserResponseBBZ@github.com/santig05/Distributed-Systems-gRPC/libs/protobufs;userb\x06proto3"
 

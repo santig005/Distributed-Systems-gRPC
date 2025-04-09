@@ -1,4 +1,4 @@
-package main
+package grpcserver
 
 import (
 	"log"
@@ -25,12 +25,11 @@ func (s *gRPCServer) Run() error {
 
 	grpcServer := grpc.NewServer()
 
-	// register our grpc service
-	userService:= service.NewUserService()
-	// register the grpc handler with the grpc server
+	// Crear la instancia del servicio de usuario
+	userService := service.NewUserService()
+	// Registrar el handler gRPC con el servidor gRPC
 	handler.NewGrpcUserService(grpcServer, userService)
 
 	log.Println("Starting gRPC server on", s.addr)
-
 	return grpcServer.Serve(lis)
 }

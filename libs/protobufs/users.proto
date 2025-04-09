@@ -16,5 +16,6 @@ message GetUsersRequest {
 }
 
 message GetUserResponse {
-  repeated User users = 1;
+  string status = 1;
+  repeated User users = 2;
 }
