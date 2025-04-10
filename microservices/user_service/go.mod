@@ -1,9 +1,8 @@
-module github.com/santig05/DISTRIBUTED-SYSTEMS-GRPC
+module github.com/santig005/Distributed-Systems-gRPC/microservices/user_service
 
 go 1.24.2
 
 require (
-	github.com/santig005/Distributed-Systems-gRPC v0.0.0-20250318002314-453275e2a8c8 // indirect
 	golang.org/x/net v0.34.0 // indirect
 	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.21.0 // indirect

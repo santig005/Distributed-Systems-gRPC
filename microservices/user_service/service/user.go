@@ -3,19 +3,19 @@ package service
 import (
 	"context"
 
-	"github.com/santig05/Distributed-Systems-gRPC/services/genproto/user"
+	"github.com/santig005/Distributed-Systems-gRPC/microservices/user_service/genproto/users"
 )
 
-var ordersDb = make([]*user.User, 0)
+var ordersDb = make([]*user.UserRequest, 0)
 
 type UserService struct {
 	// store
 }
 
-func NewOrderService() *UserService {
+func NewUserService() *UserService {
 	return &UserService{}
 }
 
-func (s *UserService) GetOrders(ctx context.Context) []*user.User {
+func (s *UserService) GetOrders(ctx context.Context) []*user.UserRequest{
 	return ordersDb
 }

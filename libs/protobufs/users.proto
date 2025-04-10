@@ -1,0 +1,20 @@
+syntax = "proto3";
+package usuario;
+
+option go_package = "github.com/santig05/Distributed-Systems-gRPC/libs/protobufs;user";
+
+service UserService {
+  rpc GetUser (GetUsersRequest) returns (GetUserResponse);
+}
+
+message User {
+  string user_id = 1;
+}
+
+message GetUsersRequest {
+  int32 user_id = 1;
+}
+
+message GetUserResponse {
+  repeated User users = 1;
+}

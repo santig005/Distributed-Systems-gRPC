@@ -28,7 +28,7 @@ func (s *gRPCServer) Run() error {
 	// register our grpc service
 	userService:= service.NewUserService()
 	// register the grpc handler with the grpc server
-	handler.NewGrpcOrdersService(grpcServer, userService)
+	handler.NewGrpcUserService(grpcServer, userService)
 
 	log.Println("Starting gRPC server on", s.addr)
 
