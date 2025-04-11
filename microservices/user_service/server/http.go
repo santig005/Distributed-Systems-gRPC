@@ -1,28 +1,29 @@
 package server
 
 import (
-    "log"
-    "net/http"
+	"log"
+	"net/http"
 
-    handler "github.com/santig005/Distributed-Systems-gRPC/microservices/user_service/handler/user"
-    "github.com/santig005/Distributed-Systems-gRPC/microservices/user_service/service"
+	handler "github.com/santig005/Distributed-Systems-gRPC/microservices/user_service/handler/user"
+	"github.com/santig005/Distributed-Systems-gRPC/microservices/user_service/service"
 )
 
 type HttpServer struct {
-    Addr string
+	Addr string
 }
 
 func NewHttpServer(addr string) *HttpServer {
-    return &HttpServer{Addr: addr}
+	return &HttpServer{Addr: addr}
 }
 
 func (s *HttpServer) Run() error {
-    router := http.NewServeMux()
+	router := http.NewServeMux()
 
-    userService := service.NewUserService()
-    userHandler := handler.NewHttpUserHandler(userService)
-    userHandler.RegisterRouter(router)
+	// Instantiate the user service and its HTTP handler.
+	userService := service.NewUserService()
+	userHandler := handler.NewHttpUserHandler(userService)
+	userHandler.RegisterRouter(router)
 
-    log.Println("Starting server on", s.Addr)
-    return http.ListenAndServe(s.Addr, router)
+	log.Println("Starting server on", s.Addr)
+	return http.ListenAndServe(s.Addr, router)
 }

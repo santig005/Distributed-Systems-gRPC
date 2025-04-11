@@ -37,3 +37,15 @@ func (h *UserGrpcHandler) GetUser(ctx context.Context, req *user.GetUsersRequest
 	}
 	return res, nil
 }
+
+// UpdateUserBalance handles the UpdateUserBalance RPC call.
+func (h *UserGrpcHandler) UpdateUserBalance(ctx context.Context, req *user.UpdateBalanceRequest) (*user.UpdateBalanceResponse, error) {
+	// Delegate the balance update to the underlying service.
+	err := h.usersService.UpdateUserBalance(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	return &user.UpdateBalanceResponse{
+		Status: "balance updated",
+	}, nil
+}

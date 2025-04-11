@@ -23,6 +23,7 @@ func NewHttpUserHandler(userService types.UserService) *UserHttpHandler {
 // RegisterRouter registra las rutas del servicio de usuario en el multiplexer HTTP.
 func (h *UserHttpHandler) RegisterRouter(router *http.ServeMux) {
 	router.HandleFunc("/user", h.GetUser)
+	router.HandleFunc("/user/balance", h.UpdateBalance)
 }
 
 // GetUser es el handler que procesa la petición para obtener un usuario.
@@ -53,5 +54,33 @@ func (h *UserHttpHandler) GetUser(w http.ResponseWriter, r *http.Request) {
 		Status: "success",
 		Users:  usersList,
 	}
+	util.WriteJSON(w, http.StatusOK, res)
+}
+
+// UpdateBalance handles the HTTP request to update the user's balance.
+func (h *UserHttpHandler) UpdateBalance(w http.ResponseWriter, r *http.Request) {
+	// Allow POST or PUT methods for updating balance.
+	if r.Method != http.MethodPost && r.Method != http.MethodPut {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Parse the JSON request into an UpdateBalanceRequest.
+	var req user.UpdateBalanceRequest
+	err := util.ParseJSON(r, &req)
+	if err != nil {
+		util.WriteError(w, http.StatusBadRequest, err)
+		return
+	}
+
+	// Call the service to update the user's balance.
+	err = h.userService.UpdateUserBalance(r.Context(), &req)
+	if err != nil {
+		util.WriteError(w, http.StatusInternalServerError, err)
+		return
+	}
+
+	// Return a success response.
+	res := map[string]string{"status": "balance updated"}
 	util.WriteJSON(w, http.StatusOK, res)
 }
