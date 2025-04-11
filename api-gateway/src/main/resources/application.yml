@@ -6,8 +6,16 @@ spring:
           uri: http://localhost:9090 # Cambia por la URL del microservicio cuando esté listo
           predicates:
             - Path=/api/users/**
+            - Path=/api/products/**
     rabbitmq:
       host: localhost
       port: 5672
       username: guest
       password: guest
+services:
+  user:
+    host: localhost
+    port: 9000
+  product:
+    host: localhost
+    port: 50053
