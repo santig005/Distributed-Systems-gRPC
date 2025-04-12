@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package product;
 
+option go_package = "github.com/santig05/Distributed-Systems-gRPC/libs/protobufs;products";
+
 service ProductService {
   rpc GetProduct (ProductRequest) returns (ProductResponse);
 }
