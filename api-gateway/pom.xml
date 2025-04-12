@@ -70,21 +70,69 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- gRPC dependencies-->
+
     <dependency>
         <groupId>io.grpc</groupId>
         <artifactId>grpc-netty</artifactId>
-        <version>1.39.0</version>
+        <version>1.71.0</version>
     </dependency>
-    <dependency>
+
+
+    <!-- <dependency>
         <groupId>io.grpc</groupId>
         <artifactId>grpc-protobuf</artifactId>
         <version>1.39.0</version>
+    </dependency> -->
+
+		<dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>3.21.7</version>
     </dependency>
-    <dependency>
+			<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java-util</artifactId>
+			<version>3.25.1</version> <!-- Usa la versión adecuada a tu proyecto -->
+	</dependency>
+
+    <!-- <dependency>
         <groupId>io.grpc</groupId>
         <artifactId>grpc-stub</artifactId>
         <version>1.39.0</version>
-    </dependency>
+    </dependency> -->
+
+
+		<!-- <dependency>
+  <groupId>io.grpc</groupId>
+  <artifactId>grpc-netty-shaded</artifactId>
+  <version>1.71.0</version>
+  <scope>runtime</scope>
+</dependency> -->
+
+
+<dependency>
+  <groupId>io.grpc</groupId>
+  <artifactId>grpc-protobuf</artifactId>
+  <version>1.71.0</version>
+</dependency>
+<dependency>
+  <groupId>io.grpc</groupId>
+  <artifactId>grpc-stub</artifactId>
+  <version>1.71.0</version>
+</dependency>
+
+
+<dependency> <!-- necessary for Java 9+ -->
+  <groupId>org.apache.tomcat</groupId>
+  <artifactId>annotations-api</artifactId>
+  <version>6.0.53</version>
+  <scope>provided</scope>
+</dependency>
+
+
+	
+		
+
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -104,6 +152,44 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- Plugin para generar archivos protobuf y gRPC -->
+    <plugin>
+      <groupId>org.xolstice.maven.plugins</groupId>
+      <artifactId>protobuf-maven-plugin</artifactId>
+      <version>0.6.1</version>
+      <configuration>
+        <!-- Ruta del compilador de protobuf -->
+        <protocArtifact>com.google.protobuf:protoc:3.21.7:exe:${os.detected.classifier}</protocArtifact>
+        <!-- Configuración del plugin para grpc-java -->
+        <pluginId>grpc-java</pluginId>
+        <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.39.0:exe:${os.detected.classifier}</pluginArtifact>
+      </configuration>
+      <executions>
+        <execution>
+          <goals>
+            <!-- Genera las clases para mensajes -->
+            <goal>compile</goal>
+            <!-- Genera las clases para gRPC -->
+            <goal>compile-custom</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+    
+    <!-- Plugin para detectar el sistema operativo (necesario para ${os.detected.classifier}) -->
+    <plugin>
+      <groupId>kr.motd.maven</groupId>
+      <artifactId>os-maven-plugin</artifactId>
+      <version>1.7.0</version>
+      <executions>
+        <execution>
+          <goals>
+            <goal>detect</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
 		</plugins>
 	</build>
 
