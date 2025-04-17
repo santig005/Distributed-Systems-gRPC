@@ -23,29 +23,29 @@ func NewGrpcUserService(grpc *grpc.Server, usersService types.UserService) {
 }
 
 
-func (h *UserGrpcHandler) GetUser(ctx context.Context, req *user.GetUsersRequest) (*user.GetUserResponse, error) {
-	// Llamamos al método de la interfaz, pasándole el contexto y el request.
-	usersList, err := h.usersService.GetUser(ctx, req)
-	if err != nil {
-		return nil, err
-	}
+func (h *UserGrpcHandler) GetUser(ctx context.Context, req *user.GetUserRequest) (*user.GetUserResponse, error) {
+    // Llamamos al método de la interfaz, pasándole el contexto y el request.
+    singleUser, err := h.usersService.GetUser(ctx, req)
+    if err != nil {
+        return nil, err
+    }
 
-	// Se arma la respuesta según el proto.
-	res := &user.GetUserResponse{
-		Status: "success",
-		Users:  usersList,
-	}
-	return res, nil
+    // Envolvemos el *user.User en un slice de []*user.User
+    res := &user.GetUserResponse{
+        Status: "success",
+        Users:  []*user.User{singleUser},
+    }
+    return res, nil
 }
 
 // UpdateUserBalance handles the UpdateUserBalance RPC call.
 func (h *UserGrpcHandler) UpdateUserBalance(ctx context.Context, req *user.UpdateBalanceRequest) (*user.UpdateBalanceResponse, error) {
-	// Delegate the balance update to the underlying service.
-	err := h.usersService.UpdateUserBalance(ctx, req)
+	u, err := h.usersService.UpdateUserBalance(ctx, req)
 	if err != nil {
 		return nil, err
 	}
 	return &user.UpdateBalanceResponse{
 		Status: "balance updated",
+		User:   u.User, // Assuming `u` has a `User` field of type `*user.User`
 	}, nil
 }
