@@ -14,27 +14,27 @@ public final class UserServiceGrpc {
   public static final String SERVICE_NAME = "usuario.UserService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<usuario.Users.GetUsersRequest,
+  private static volatile io.grpc.MethodDescriptor<usuario.Users.GetUserRequest,
       usuario.Users.GetUserResponse> getGetUserMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetUser",
-      requestType = usuario.Users.GetUsersRequest.class,
+      requestType = usuario.Users.GetUserRequest.class,
       responseType = usuario.Users.GetUserResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<usuario.Users.GetUsersRequest,
+  public static io.grpc.MethodDescriptor<usuario.Users.GetUserRequest,
       usuario.Users.GetUserResponse> getGetUserMethod() {
-    io.grpc.MethodDescriptor<usuario.Users.GetUsersRequest, usuario.Users.GetUserResponse> getGetUserMethod;
+    io.grpc.MethodDescriptor<usuario.Users.GetUserRequest, usuario.Users.GetUserResponse> getGetUserMethod;
     if ((getGetUserMethod = UserServiceGrpc.getGetUserMethod) == null) {
       synchronized (UserServiceGrpc.class) {
         if ((getGetUserMethod = UserServiceGrpc.getGetUserMethod) == null) {
           UserServiceGrpc.getGetUserMethod = getGetUserMethod =
-              io.grpc.MethodDescriptor.<usuario.Users.GetUsersRequest, usuario.Users.GetUserResponse>newBuilder()
+              io.grpc.MethodDescriptor.<usuario.Users.GetUserRequest, usuario.Users.GetUserResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetUser"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  usuario.Users.GetUsersRequest.getDefaultInstance()))
+                  usuario.Users.GetUserRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   usuario.Users.GetUserResponse.getDefaultInstance()))
               .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("GetUser"))
@@ -43,6 +43,37 @@ public final class UserServiceGrpc {
       }
     }
     return getGetUserMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<usuario.Users.UpdateBalanceRequest,
+      usuario.Users.UpdateBalanceResponse> getUpdateUserBalanceMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateUserBalance",
+      requestType = usuario.Users.UpdateBalanceRequest.class,
+      responseType = usuario.Users.UpdateBalanceResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<usuario.Users.UpdateBalanceRequest,
+      usuario.Users.UpdateBalanceResponse> getUpdateUserBalanceMethod() {
+    io.grpc.MethodDescriptor<usuario.Users.UpdateBalanceRequest, usuario.Users.UpdateBalanceResponse> getUpdateUserBalanceMethod;
+    if ((getUpdateUserBalanceMethod = UserServiceGrpc.getUpdateUserBalanceMethod) == null) {
+      synchronized (UserServiceGrpc.class) {
+        if ((getUpdateUserBalanceMethod = UserServiceGrpc.getUpdateUserBalanceMethod) == null) {
+          UserServiceGrpc.getUpdateUserBalanceMethod = getUpdateUserBalanceMethod =
+              io.grpc.MethodDescriptor.<usuario.Users.UpdateBalanceRequest, usuario.Users.UpdateBalanceResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateUserBalance"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  usuario.Users.UpdateBalanceRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  usuario.Users.UpdateBalanceResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("UpdateUserBalance"))
+              .build();
+        }
+      }
+    }
+    return getUpdateUserBalanceMethod;
   }
 
   /**
@@ -95,9 +126,16 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public void getUser(usuario.Users.GetUsersRequest request,
+    public void getUser(usuario.Users.GetUserRequest request,
         io.grpc.stub.StreamObserver<usuario.Users.GetUserResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetUserMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void updateUserBalance(usuario.Users.UpdateBalanceRequest request,
+        io.grpc.stub.StreamObserver<usuario.Users.UpdateBalanceResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateUserBalanceMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -106,9 +144,16 @@ public final class UserServiceGrpc {
             getGetUserMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
-                usuario.Users.GetUsersRequest,
+                usuario.Users.GetUserRequest,
                 usuario.Users.GetUserResponse>(
                   this, METHODID_GET_USER)))
+          .addMethod(
+            getUpdateUserBalanceMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                usuario.Users.UpdateBalanceRequest,
+                usuario.Users.UpdateBalanceResponse>(
+                  this, METHODID_UPDATE_USER_BALANCE)))
           .build();
     }
   }
@@ -129,10 +174,18 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public void getUser(usuario.Users.GetUsersRequest request,
+    public void getUser(usuario.Users.GetUserRequest request,
         io.grpc.stub.StreamObserver<usuario.Users.GetUserResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetUserMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void updateUserBalance(usuario.Users.UpdateBalanceRequest request,
+        io.grpc.stub.StreamObserver<usuario.Users.UpdateBalanceResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateUserBalanceMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -152,9 +205,16 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public usuario.Users.GetUserResponse getUser(usuario.Users.GetUsersRequest request) {
+    public usuario.Users.GetUserResponse getUser(usuario.Users.GetUserRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetUserMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public usuario.Users.UpdateBalanceResponse updateUserBalance(usuario.Users.UpdateBalanceRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateUserBalanceMethod(), getCallOptions(), request);
     }
   }
 
@@ -175,13 +235,22 @@ public final class UserServiceGrpc {
     /**
      */
     public com.google.common.util.concurrent.ListenableFuture<usuario.Users.GetUserResponse> getUser(
-        usuario.Users.GetUsersRequest request) {
+        usuario.Users.GetUserRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetUserMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<usuario.Users.UpdateBalanceResponse> updateUserBalance(
+        usuario.Users.UpdateBalanceRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateUserBalanceMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_GET_USER = 0;
+  private static final int METHODID_UPDATE_USER_BALANCE = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -201,8 +270,12 @@ public final class UserServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_GET_USER:
-          serviceImpl.getUser((usuario.Users.GetUsersRequest) request,
+          serviceImpl.getUser((usuario.Users.GetUserRequest) request,
               (io.grpc.stub.StreamObserver<usuario.Users.GetUserResponse>) responseObserver);
+          break;
+        case METHODID_UPDATE_USER_BALANCE:
+          serviceImpl.updateUserBalance((usuario.Users.UpdateBalanceRequest) request,
+              (io.grpc.stub.StreamObserver<usuario.Users.UpdateBalanceResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -266,6 +339,7 @@ public final class UserServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new UserServiceFileDescriptorSupplier())
               .addMethod(getGetUserMethod())
+              .addMethod(getUpdateUserBalanceMethod())
               .build();
         }
       }

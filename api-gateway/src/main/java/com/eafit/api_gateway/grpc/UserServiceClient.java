@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 // Importa las clases generadas por el compilador de proto
-import user.UserServiceGrpc;
-import user.GetUserResponse;
+import usuario.UserServiceGrpc;
+import usuario.Users.GetUserResponse;
 
 
 
 
 
-import user.GetUsersRequest; // Ensure this matches the actual package and class name
+import usuario.Users.GetUserRequest; // Ensure this matches the actual package and class name
 
 
 import jakarta.annotation.PostConstruct;
@@ -45,7 +45,7 @@ public class UserServiceClient {
     // Si el método en el proto es getUser, usa ese nombre
     public GetUserResponse getUser(String userId) {
         // Crea la solicitud usando el builder del proto
-        GetUsersRequest request = GetUsersRequest.newBuilder()
+        GetUserRequest request = GetUserRequest.newBuilder()
                 .setUserId(Integer.parseInt(userId)) // Asegúrate de que el tipo coincida con lo que espera el servicio
                 .build();
         // Realiza la llamada remota con el stub

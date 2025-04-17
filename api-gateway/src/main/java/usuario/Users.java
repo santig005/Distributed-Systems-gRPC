@@ -29,6 +29,36 @@ public final class Users {
      */
     com.google.protobuf.ByteString
         getUserIdBytes();
+
+    /**
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    java.lang.String getName();
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    com.google.protobuf.ByteString
+        getNameBytes();
+
+    /**
+     * <code>string email = 3;</code>
+     * @return The email.
+     */
+    java.lang.String getEmail();
+    /**
+     * <code>string email = 3;</code>
+     * @return The bytes for email.
+     */
+    com.google.protobuf.ByteString
+        getEmailBytes();
+
+    /**
+     * <code>double balance = 4;</code>
+     * @return The balance.
+     */
+    double getBalance();
   }
   /**
    * Protobuf type {@code usuario.User}
@@ -44,6 +74,8 @@ public final class Users {
     }
     private User() {
       userId_ = "";
+      name_ = "";
+      email_ = "";
     }
 
     @java.lang.Override
@@ -109,6 +141,93 @@ public final class Users {
       }
     }
 
+    public static final int NAME_FIELD_NUMBER = 2;
+    private volatile java.lang.Object name_;
+    /**
+     * <code>string name = 2;</code>
+     * @return The name.
+     */
+    @java.lang.Override
+    public java.lang.String getName() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        name_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string name = 2;</code>
+     * @return The bytes for name.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNameBytes() {
+      java.lang.Object ref = name_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        name_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EMAIL_FIELD_NUMBER = 3;
+    private volatile java.lang.Object email_;
+    /**
+     * <code>string email = 3;</code>
+     * @return The email.
+     */
+    @java.lang.Override
+    public java.lang.String getEmail() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        email_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string email = 3;</code>
+     * @return The bytes for email.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEmailBytes() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        email_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int BALANCE_FIELD_NUMBER = 4;
+    private double balance_;
+    /**
+     * <code>double balance = 4;</code>
+     * @return The balance.
+     */
+    @java.lang.Override
+    public double getBalance() {
+      return balance_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -126,6 +245,15 @@ public final class Users {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(userId_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userId_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(email_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, email_);
+      }
+      if (java.lang.Double.doubleToRawLongBits(balance_) != 0) {
+        output.writeDouble(4, balance_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -137,6 +265,16 @@ public final class Users {
       size = 0;
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(userId_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(email_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, email_);
+      }
+      if (java.lang.Double.doubleToRawLongBits(balance_) != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(4, balance_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -155,6 +293,13 @@ public final class Users {
 
       if (!getUserId()
           .equals(other.getUserId())) return false;
+      if (!getName()
+          .equals(other.getName())) return false;
+      if (!getEmail()
+          .equals(other.getEmail())) return false;
+      if (java.lang.Double.doubleToLongBits(getBalance())
+          != java.lang.Double.doubleToLongBits(
+              other.getBalance())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -168,6 +313,13 @@ public final class Users {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + USER_ID_FIELD_NUMBER;
       hash = (53 * hash) + getUserId().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + EMAIL_FIELD_NUMBER;
+      hash = (53 * hash) + getEmail().hashCode();
+      hash = (37 * hash) + BALANCE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getBalance()));
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -298,6 +450,12 @@ public final class Users {
         super.clear();
         userId_ = "";
 
+        name_ = "";
+
+        email_ = "";
+
+        balance_ = 0D;
+
         return this;
       }
 
@@ -325,6 +483,9 @@ public final class Users {
       public usuario.Users.User buildPartial() {
         usuario.Users.User result = new usuario.Users.User(this);
         result.userId_ = userId_;
+        result.name_ = name_;
+        result.email_ = email_;
+        result.balance_ = balance_;
         onBuilt();
         return result;
       }
@@ -377,6 +538,17 @@ public final class Users {
           userId_ = other.userId_;
           onChanged();
         }
+        if (!other.getName().isEmpty()) {
+          name_ = other.name_;
+          onChanged();
+        }
+        if (!other.getEmail().isEmpty()) {
+          email_ = other.email_;
+          onChanged();
+        }
+        if (other.getBalance() != 0D) {
+          setBalance(other.getBalance());
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -408,6 +580,21 @@ public final class Users {
 
                 break;
               } // case 10
+              case 18: {
+                name_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 18
+              case 26: {
+                email_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 26
+              case 33: {
+                balance_ = input.readDouble();
+
+                break;
+              } // case 33
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -499,6 +686,189 @@ public final class Users {
         onChanged();
         return this;
       }
+
+      private java.lang.Object name_ = "";
+      /**
+       * <code>string name = 2;</code>
+       * @return The name.
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          name_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @return The bytes for name.
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setName(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        name_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearName() {
+        
+        name_ = getDefaultInstance().getName();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string name = 2;</code>
+       * @param value The bytes for name to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        name_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object email_ = "";
+      /**
+       * <code>string email = 3;</code>
+       * @return The email.
+       */
+      public java.lang.String getEmail() {
+        java.lang.Object ref = email_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          email_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string email = 3;</code>
+       * @return The bytes for email.
+       */
+      public com.google.protobuf.ByteString
+          getEmailBytes() {
+        java.lang.Object ref = email_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          email_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string email = 3;</code>
+       * @param value The email to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEmail(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        email_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string email = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEmail() {
+        
+        email_ = getDefaultInstance().getEmail();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string email = 3;</code>
+       * @param value The bytes for email to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEmailBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        email_ = value;
+        onChanged();
+        return this;
+      }
+
+      private double balance_ ;
+      /**
+       * <code>double balance = 4;</code>
+       * @return The balance.
+       */
+      @java.lang.Override
+      public double getBalance() {
+        return balance_;
+      }
+      /**
+       * <code>double balance = 4;</code>
+       * @param value The balance to set.
+       * @return This builder for chaining.
+       */
+      public Builder setBalance(double value) {
+        
+        balance_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double balance = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearBalance() {
+        
+        balance_ = 0D;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -563,8 +933,8 @@ public final class Users {
 
   }
 
-  public interface GetUsersRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:usuario.GetUsersRequest)
+  public interface GetUserRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:usuario.GetUserRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -574,25 +944,25 @@ public final class Users {
     int getUserId();
   }
   /**
-   * Protobuf type {@code usuario.GetUsersRequest}
+   * Protobuf type {@code usuario.GetUserRequest}
    */
-  public static final class GetUsersRequest extends
+  public static final class GetUserRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:usuario.GetUsersRequest)
-      GetUsersRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:usuario.GetUserRequest)
+      GetUserRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use GetUsersRequest.newBuilder() to construct.
-    private GetUsersRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use GetUserRequest.newBuilder() to construct.
+    private GetUserRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private GetUsersRequest() {
+    private GetUserRequest() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new GetUsersRequest();
+      return new GetUserRequest();
     }
 
     @java.lang.Override
@@ -602,15 +972,15 @@ public final class Users {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return usuario.Users.internal_static_usuario_GetUsersRequest_descriptor;
+      return usuario.Users.internal_static_usuario_GetUserRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return usuario.Users.internal_static_usuario_GetUsersRequest_fieldAccessorTable
+      return usuario.Users.internal_static_usuario_GetUserRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              usuario.Users.GetUsersRequest.class, usuario.Users.GetUsersRequest.Builder.class);
+              usuario.Users.GetUserRequest.class, usuario.Users.GetUserRequest.Builder.class);
     }
 
     public static final int USER_ID_FIELD_NUMBER = 1;
@@ -664,10 +1034,10 @@ public final class Users {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof usuario.Users.GetUsersRequest)) {
+      if (!(obj instanceof usuario.Users.GetUserRequest)) {
         return super.equals(obj);
       }
-      usuario.Users.GetUsersRequest other = (usuario.Users.GetUsersRequest) obj;
+      usuario.Users.GetUserRequest other = (usuario.Users.GetUserRequest) obj;
 
       if (getUserId()
           != other.getUserId()) return false;
@@ -689,69 +1059,69 @@ public final class Users {
       return hash;
     }
 
-    public static usuario.Users.GetUsersRequest parseFrom(
+    public static usuario.Users.GetUserRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static usuario.Users.GetUsersRequest parseFrom(
+    public static usuario.Users.GetUserRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static usuario.Users.GetUsersRequest parseFrom(
+    public static usuario.Users.GetUserRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static usuario.Users.GetUsersRequest parseFrom(
+    public static usuario.Users.GetUserRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static usuario.Users.GetUsersRequest parseFrom(byte[] data)
+    public static usuario.Users.GetUserRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static usuario.Users.GetUsersRequest parseFrom(
+    public static usuario.Users.GetUserRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static usuario.Users.GetUsersRequest parseFrom(java.io.InputStream input)
+    public static usuario.Users.GetUserRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static usuario.Users.GetUsersRequest parseFrom(
+    public static usuario.Users.GetUserRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static usuario.Users.GetUsersRequest parseDelimitedFrom(java.io.InputStream input)
+    public static usuario.Users.GetUserRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static usuario.Users.GetUsersRequest parseDelimitedFrom(
+    public static usuario.Users.GetUserRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static usuario.Users.GetUsersRequest parseFrom(
+    public static usuario.Users.GetUserRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static usuario.Users.GetUsersRequest parseFrom(
+    public static usuario.Users.GetUserRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -764,7 +1134,7 @@ public final class Users {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(usuario.Users.GetUsersRequest prototype) {
+    public static Builder newBuilder(usuario.Users.GetUserRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -780,26 +1150,26 @@ public final class Users {
       return builder;
     }
     /**
-     * Protobuf type {@code usuario.GetUsersRequest}
+     * Protobuf type {@code usuario.GetUserRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:usuario.GetUsersRequest)
-        usuario.Users.GetUsersRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:usuario.GetUserRequest)
+        usuario.Users.GetUserRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return usuario.Users.internal_static_usuario_GetUsersRequest_descriptor;
+        return usuario.Users.internal_static_usuario_GetUserRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return usuario.Users.internal_static_usuario_GetUsersRequest_fieldAccessorTable
+        return usuario.Users.internal_static_usuario_GetUserRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                usuario.Users.GetUsersRequest.class, usuario.Users.GetUsersRequest.Builder.class);
+                usuario.Users.GetUserRequest.class, usuario.Users.GetUserRequest.Builder.class);
       }
 
-      // Construct using usuario.Users.GetUsersRequest.newBuilder()
+      // Construct using usuario.Users.GetUserRequest.newBuilder()
       private Builder() {
 
       }
@@ -820,17 +1190,17 @@ public final class Users {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return usuario.Users.internal_static_usuario_GetUsersRequest_descriptor;
+        return usuario.Users.internal_static_usuario_GetUserRequest_descriptor;
       }
 
       @java.lang.Override
-      public usuario.Users.GetUsersRequest getDefaultInstanceForType() {
-        return usuario.Users.GetUsersRequest.getDefaultInstance();
+      public usuario.Users.GetUserRequest getDefaultInstanceForType() {
+        return usuario.Users.GetUserRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public usuario.Users.GetUsersRequest build() {
-        usuario.Users.GetUsersRequest result = buildPartial();
+      public usuario.Users.GetUserRequest build() {
+        usuario.Users.GetUserRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -838,8 +1208,8 @@ public final class Users {
       }
 
       @java.lang.Override
-      public usuario.Users.GetUsersRequest buildPartial() {
-        usuario.Users.GetUsersRequest result = new usuario.Users.GetUsersRequest(this);
+      public usuario.Users.GetUserRequest buildPartial() {
+        usuario.Users.GetUserRequest result = new usuario.Users.GetUserRequest(this);
         result.userId_ = userId_;
         onBuilt();
         return result;
@@ -879,16 +1249,16 @@ public final class Users {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof usuario.Users.GetUsersRequest) {
-          return mergeFrom((usuario.Users.GetUsersRequest)other);
+        if (other instanceof usuario.Users.GetUserRequest) {
+          return mergeFrom((usuario.Users.GetUserRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(usuario.Users.GetUsersRequest other) {
-        if (other == usuario.Users.GetUsersRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(usuario.Users.GetUserRequest other) {
+        if (other == usuario.Users.GetUserRequest.getDefaultInstance()) return this;
         if (other.getUserId() != 0) {
           setUserId(other.getUserId());
         }
@@ -982,23 +1352,23 @@ public final class Users {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:usuario.GetUsersRequest)
+      // @@protoc_insertion_point(builder_scope:usuario.GetUserRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:usuario.GetUsersRequest)
-    private static final usuario.Users.GetUsersRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:usuario.GetUserRequest)
+    private static final usuario.Users.GetUserRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new usuario.Users.GetUsersRequest();
+      DEFAULT_INSTANCE = new usuario.Users.GetUserRequest();
     }
 
-    public static usuario.Users.GetUsersRequest getDefaultInstance() {
+    public static usuario.Users.GetUserRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<GetUsersRequest>
-        PARSER = new com.google.protobuf.AbstractParser<GetUsersRequest>() {
+    private static final com.google.protobuf.Parser<GetUserRequest>
+        PARSER = new com.google.protobuf.AbstractParser<GetUserRequest>() {
       @java.lang.Override
-      public GetUsersRequest parsePartialFrom(
+      public GetUserRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1017,17 +1387,17 @@ public final class Users {
       }
     };
 
-    public static com.google.protobuf.Parser<GetUsersRequest> parser() {
+    public static com.google.protobuf.Parser<GetUserRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<GetUsersRequest> getParserForType() {
+    public com.google.protobuf.Parser<GetUserRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public usuario.Users.GetUsersRequest getDefaultInstanceForType() {
+    public usuario.Users.GetUserRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1038,25 +1408,37 @@ public final class Users {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>string status = 1;</code>
+     * @return The status.
+     */
+    java.lang.String getStatus();
+    /**
+     * <code>string status = 1;</code>
+     * @return The bytes for status.
+     */
+    com.google.protobuf.ByteString
+        getStatusBytes();
+
+    /**
+     * <code>repeated .usuario.User users = 2;</code>
      */
     java.util.List<usuario.Users.User> 
         getUsersList();
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>repeated .usuario.User users = 2;</code>
      */
     usuario.Users.User getUsers(int index);
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>repeated .usuario.User users = 2;</code>
      */
     int getUsersCount();
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>repeated .usuario.User users = 2;</code>
      */
     java.util.List<? extends usuario.Users.UserOrBuilder> 
         getUsersOrBuilderList();
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>repeated .usuario.User users = 2;</code>
      */
     usuario.Users.UserOrBuilder getUsersOrBuilder(
         int index);
@@ -1074,6 +1456,7 @@ public final class Users {
       super(builder);
     }
     private GetUserResponse() {
+      status_ = "";
       users_ = java.util.Collections.emptyList();
     }
 
@@ -1102,17 +1485,55 @@ public final class Users {
               usuario.Users.GetUserResponse.class, usuario.Users.GetUserResponse.Builder.class);
     }
 
-    public static final int USERS_FIELD_NUMBER = 1;
+    public static final int STATUS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object status_;
+    /**
+     * <code>string status = 1;</code>
+     * @return The status.
+     */
+    @java.lang.Override
+    public java.lang.String getStatus() {
+      java.lang.Object ref = status_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        status_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string status = 1;</code>
+     * @return The bytes for status.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStatusBytes() {
+      java.lang.Object ref = status_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        status_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USERS_FIELD_NUMBER = 2;
     private java.util.List<usuario.Users.User> users_;
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>repeated .usuario.User users = 2;</code>
      */
     @java.lang.Override
     public java.util.List<usuario.Users.User> getUsersList() {
       return users_;
     }
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>repeated .usuario.User users = 2;</code>
      */
     @java.lang.Override
     public java.util.List<? extends usuario.Users.UserOrBuilder> 
@@ -1120,21 +1541,21 @@ public final class Users {
       return users_;
     }
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>repeated .usuario.User users = 2;</code>
      */
     @java.lang.Override
     public int getUsersCount() {
       return users_.size();
     }
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>repeated .usuario.User users = 2;</code>
      */
     @java.lang.Override
     public usuario.Users.User getUsers(int index) {
       return users_.get(index);
     }
     /**
-     * <code>repeated .usuario.User users = 1;</code>
+     * <code>repeated .usuario.User users = 2;</code>
      */
     @java.lang.Override
     public usuario.Users.UserOrBuilder getUsersOrBuilder(
@@ -1156,8 +1577,11 @@ public final class Users {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, status_);
+      }
       for (int i = 0; i < users_.size(); i++) {
-        output.writeMessage(1, users_.get(i));
+        output.writeMessage(2, users_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -1168,9 +1592,12 @@ public final class Users {
       if (size != -1) return size;
 
       size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, status_);
+      }
       for (int i = 0; i < users_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, users_.get(i));
+          .computeMessageSize(2, users_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1187,6 +1614,8 @@ public final class Users {
       }
       usuario.Users.GetUserResponse other = (usuario.Users.GetUserResponse) obj;
 
+      if (!getStatus()
+          .equals(other.getStatus())) return false;
       if (!getUsersList()
           .equals(other.getUsersList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
@@ -1200,6 +1629,8 @@ public final class Users {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getStatus().hashCode();
       if (getUsersCount() > 0) {
         hash = (37 * hash) + USERS_FIELD_NUMBER;
         hash = (53 * hash) + getUsersList().hashCode();
@@ -1332,6 +1763,8 @@ public final class Users {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        status_ = "";
+
         if (usersBuilder_ == null) {
           users_ = java.util.Collections.emptyList();
         } else {
@@ -1366,6 +1799,7 @@ public final class Users {
       public usuario.Users.GetUserResponse buildPartial() {
         usuario.Users.GetUserResponse result = new usuario.Users.GetUserResponse(this);
         int from_bitField0_ = bitField0_;
+        result.status_ = status_;
         if (usersBuilder_ == null) {
           if (((bitField0_ & 0x00000001) != 0)) {
             users_ = java.util.Collections.unmodifiableList(users_);
@@ -1423,6 +1857,10 @@ public final class Users {
 
       public Builder mergeFrom(usuario.Users.GetUserResponse other) {
         if (other == usuario.Users.GetUserResponse.getDefaultInstance()) return this;
+        if (!other.getStatus().isEmpty()) {
+          status_ = other.status_;
+          onChanged();
+        }
         if (usersBuilder_ == null) {
           if (!other.users_.isEmpty()) {
             if (users_.isEmpty()) {
@@ -1476,6 +1914,11 @@ public final class Users {
                 done = true;
                 break;
               case 10: {
+                status_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 10
+              case 18: {
                 usuario.Users.User m =
                     input.readMessage(
                         usuario.Users.User.parser(),
@@ -1487,7 +1930,7 @@ public final class Users {
                   usersBuilder_.addMessage(m);
                 }
                 break;
-              } // case 10
+              } // case 18
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -1505,6 +1948,82 @@ public final class Users {
       }
       private int bitField0_;
 
+      private java.lang.Object status_ = "";
+      /**
+       * <code>string status = 1;</code>
+       * @return The status.
+       */
+      public java.lang.String getStatus() {
+        java.lang.Object ref = status_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          status_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @return The bytes for status.
+       */
+      public com.google.protobuf.ByteString
+          getStatusBytes() {
+        java.lang.Object ref = status_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          status_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = getDefaultInstance().getStatus();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @param value The bytes for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+
       private java.util.List<usuario.Users.User> users_ =
         java.util.Collections.emptyList();
       private void ensureUsersIsMutable() {
@@ -1518,7 +2037,7 @@ public final class Users {
           usuario.Users.User, usuario.Users.User.Builder, usuario.Users.UserOrBuilder> usersBuilder_;
 
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public java.util.List<usuario.Users.User> getUsersList() {
         if (usersBuilder_ == null) {
@@ -1528,7 +2047,7 @@ public final class Users {
         }
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public int getUsersCount() {
         if (usersBuilder_ == null) {
@@ -1538,7 +2057,7 @@ public final class Users {
         }
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public usuario.Users.User getUsers(int index) {
         if (usersBuilder_ == null) {
@@ -1548,7 +2067,7 @@ public final class Users {
         }
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public Builder setUsers(
           int index, usuario.Users.User value) {
@@ -1565,7 +2084,7 @@ public final class Users {
         return this;
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public Builder setUsers(
           int index, usuario.Users.User.Builder builderForValue) {
@@ -1579,7 +2098,7 @@ public final class Users {
         return this;
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public Builder addUsers(usuario.Users.User value) {
         if (usersBuilder_ == null) {
@@ -1595,7 +2114,7 @@ public final class Users {
         return this;
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public Builder addUsers(
           int index, usuario.Users.User value) {
@@ -1612,7 +2131,7 @@ public final class Users {
         return this;
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public Builder addUsers(
           usuario.Users.User.Builder builderForValue) {
@@ -1626,7 +2145,7 @@ public final class Users {
         return this;
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public Builder addUsers(
           int index, usuario.Users.User.Builder builderForValue) {
@@ -1640,7 +2159,7 @@ public final class Users {
         return this;
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public Builder addAllUsers(
           java.lang.Iterable<? extends usuario.Users.User> values) {
@@ -1655,7 +2174,7 @@ public final class Users {
         return this;
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public Builder clearUsers() {
         if (usersBuilder_ == null) {
@@ -1668,7 +2187,7 @@ public final class Users {
         return this;
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public Builder removeUsers(int index) {
         if (usersBuilder_ == null) {
@@ -1681,14 +2200,14 @@ public final class Users {
         return this;
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public usuario.Users.User.Builder getUsersBuilder(
           int index) {
         return getUsersFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public usuario.Users.UserOrBuilder getUsersOrBuilder(
           int index) {
@@ -1698,7 +2217,7 @@ public final class Users {
         }
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public java.util.List<? extends usuario.Users.UserOrBuilder> 
            getUsersOrBuilderList() {
@@ -1709,14 +2228,14 @@ public final class Users {
         }
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public usuario.Users.User.Builder addUsersBuilder() {
         return getUsersFieldBuilder().addBuilder(
             usuario.Users.User.getDefaultInstance());
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public usuario.Users.User.Builder addUsersBuilder(
           int index) {
@@ -1724,7 +2243,7 @@ public final class Users {
             index, usuario.Users.User.getDefaultInstance());
       }
       /**
-       * <code>repeated .usuario.User users = 1;</code>
+       * <code>repeated .usuario.User users = 2;</code>
        */
       public java.util.List<usuario.Users.User.Builder> 
            getUsersBuilderList() {
@@ -1808,21 +2327,1327 @@ public final class Users {
 
   }
 
+  public interface UpdateBalanceRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:usuario.UpdateBalanceRequest)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 user_id = 1;</code>
+     * @return The userId.
+     */
+    int getUserId();
+
+    /**
+     * <code>double new_balance = 2;</code>
+     * @return The newBalance.
+     */
+    double getNewBalance();
+  }
+  /**
+   * <pre>
+   * New messages for updating the balance.
+   * </pre>
+   *
+   * Protobuf type {@code usuario.UpdateBalanceRequest}
+   */
+  public static final class UpdateBalanceRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:usuario.UpdateBalanceRequest)
+      UpdateBalanceRequestOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UpdateBalanceRequest.newBuilder() to construct.
+    private UpdateBalanceRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UpdateBalanceRequest() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new UpdateBalanceRequest();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return usuario.Users.internal_static_usuario_UpdateBalanceRequest_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return usuario.Users.internal_static_usuario_UpdateBalanceRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              usuario.Users.UpdateBalanceRequest.class, usuario.Users.UpdateBalanceRequest.Builder.class);
+    }
+
+    public static final int USER_ID_FIELD_NUMBER = 1;
+    private int userId_;
+    /**
+     * <code>int32 user_id = 1;</code>
+     * @return The userId.
+     */
+    @java.lang.Override
+    public int getUserId() {
+      return userId_;
+    }
+
+    public static final int NEW_BALANCE_FIELD_NUMBER = 2;
+    private double newBalance_;
+    /**
+     * <code>double new_balance = 2;</code>
+     * @return The newBalance.
+     */
+    @java.lang.Override
+    public double getNewBalance() {
+      return newBalance_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (userId_ != 0) {
+        output.writeInt32(1, userId_);
+      }
+      if (java.lang.Double.doubleToRawLongBits(newBalance_) != 0) {
+        output.writeDouble(2, newBalance_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (userId_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, userId_);
+      }
+      if (java.lang.Double.doubleToRawLongBits(newBalance_) != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(2, newBalance_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof usuario.Users.UpdateBalanceRequest)) {
+        return super.equals(obj);
+      }
+      usuario.Users.UpdateBalanceRequest other = (usuario.Users.UpdateBalanceRequest) obj;
+
+      if (getUserId()
+          != other.getUserId()) return false;
+      if (java.lang.Double.doubleToLongBits(getNewBalance())
+          != java.lang.Double.doubleToLongBits(
+              other.getNewBalance())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + USER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getUserId();
+      hash = (37 * hash) + NEW_BALANCE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getNewBalance()));
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static usuario.Users.UpdateBalanceRequest parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static usuario.Users.UpdateBalanceRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(usuario.Users.UpdateBalanceRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     * New messages for updating the balance.
+     * </pre>
+     *
+     * Protobuf type {@code usuario.UpdateBalanceRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:usuario.UpdateBalanceRequest)
+        usuario.Users.UpdateBalanceRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return usuario.Users.internal_static_usuario_UpdateBalanceRequest_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return usuario.Users.internal_static_usuario_UpdateBalanceRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                usuario.Users.UpdateBalanceRequest.class, usuario.Users.UpdateBalanceRequest.Builder.class);
+      }
+
+      // Construct using usuario.Users.UpdateBalanceRequest.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        userId_ = 0;
+
+        newBalance_ = 0D;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return usuario.Users.internal_static_usuario_UpdateBalanceRequest_descriptor;
+      }
+
+      @java.lang.Override
+      public usuario.Users.UpdateBalanceRequest getDefaultInstanceForType() {
+        return usuario.Users.UpdateBalanceRequest.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public usuario.Users.UpdateBalanceRequest build() {
+        usuario.Users.UpdateBalanceRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public usuario.Users.UpdateBalanceRequest buildPartial() {
+        usuario.Users.UpdateBalanceRequest result = new usuario.Users.UpdateBalanceRequest(this);
+        result.userId_ = userId_;
+        result.newBalance_ = newBalance_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof usuario.Users.UpdateBalanceRequest) {
+          return mergeFrom((usuario.Users.UpdateBalanceRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(usuario.Users.UpdateBalanceRequest other) {
+        if (other == usuario.Users.UpdateBalanceRequest.getDefaultInstance()) return this;
+        if (other.getUserId() != 0) {
+          setUserId(other.getUserId());
+        }
+        if (other.getNewBalance() != 0D) {
+          setNewBalance(other.getNewBalance());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                userId_ = input.readInt32();
+
+                break;
+              } // case 8
+              case 17: {
+                newBalance_ = input.readDouble();
+
+                break;
+              } // case 17
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      private int userId_ ;
+      /**
+       * <code>int32 user_id = 1;</code>
+       * @return The userId.
+       */
+      @java.lang.Override
+      public int getUserId() {
+        return userId_;
+      }
+      /**
+       * <code>int32 user_id = 1;</code>
+       * @param value The userId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUserId(int value) {
+        
+        userId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 user_id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUserId() {
+        
+        userId_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private double newBalance_ ;
+      /**
+       * <code>double new_balance = 2;</code>
+       * @return The newBalance.
+       */
+      @java.lang.Override
+      public double getNewBalance() {
+        return newBalance_;
+      }
+      /**
+       * <code>double new_balance = 2;</code>
+       * @param value The newBalance to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNewBalance(double value) {
+        
+        newBalance_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double new_balance = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNewBalance() {
+        
+        newBalance_ = 0D;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:usuario.UpdateBalanceRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:usuario.UpdateBalanceRequest)
+    private static final usuario.Users.UpdateBalanceRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new usuario.Users.UpdateBalanceRequest();
+    }
+
+    public static usuario.Users.UpdateBalanceRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UpdateBalanceRequest>
+        PARSER = new com.google.protobuf.AbstractParser<UpdateBalanceRequest>() {
+      @java.lang.Override
+      public UpdateBalanceRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<UpdateBalanceRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UpdateBalanceRequest> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public usuario.Users.UpdateBalanceRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UpdateBalanceResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:usuario.UpdateBalanceResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string status = 1;</code>
+     * @return The status.
+     */
+    java.lang.String getStatus();
+    /**
+     * <code>string status = 1;</code>
+     * @return The bytes for status.
+     */
+    com.google.protobuf.ByteString
+        getStatusBytes();
+
+    /**
+     * <code>.usuario.User user = 2;</code>
+     * @return Whether the user field is set.
+     */
+    boolean hasUser();
+    /**
+     * <code>.usuario.User user = 2;</code>
+     * @return The user.
+     */
+    usuario.Users.User getUser();
+    /**
+     * <code>.usuario.User user = 2;</code>
+     */
+    usuario.Users.UserOrBuilder getUserOrBuilder();
+  }
+  /**
+   * Protobuf type {@code usuario.UpdateBalanceResponse}
+   */
+  public static final class UpdateBalanceResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:usuario.UpdateBalanceResponse)
+      UpdateBalanceResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use UpdateBalanceResponse.newBuilder() to construct.
+    private UpdateBalanceResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UpdateBalanceResponse() {
+      status_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new UpdateBalanceResponse();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return usuario.Users.internal_static_usuario_UpdateBalanceResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return usuario.Users.internal_static_usuario_UpdateBalanceResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              usuario.Users.UpdateBalanceResponse.class, usuario.Users.UpdateBalanceResponse.Builder.class);
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 1;
+    private volatile java.lang.Object status_;
+    /**
+     * <code>string status = 1;</code>
+     * @return The status.
+     */
+    @java.lang.Override
+    public java.lang.String getStatus() {
+      java.lang.Object ref = status_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        status_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string status = 1;</code>
+     * @return The bytes for status.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStatusBytes() {
+      java.lang.Object ref = status_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        status_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USER_FIELD_NUMBER = 2;
+    private usuario.Users.User user_;
+    /**
+     * <code>.usuario.User user = 2;</code>
+     * @return Whether the user field is set.
+     */
+    @java.lang.Override
+    public boolean hasUser() {
+      return user_ != null;
+    }
+    /**
+     * <code>.usuario.User user = 2;</code>
+     * @return The user.
+     */
+    @java.lang.Override
+    public usuario.Users.User getUser() {
+      return user_ == null ? usuario.Users.User.getDefaultInstance() : user_;
+    }
+    /**
+     * <code>.usuario.User user = 2;</code>
+     */
+    @java.lang.Override
+    public usuario.Users.UserOrBuilder getUserOrBuilder() {
+      return getUser();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, status_);
+      }
+      if (user_ != null) {
+        output.writeMessage(2, getUser());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, status_);
+      }
+      if (user_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getUser());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof usuario.Users.UpdateBalanceResponse)) {
+        return super.equals(obj);
+      }
+      usuario.Users.UpdateBalanceResponse other = (usuario.Users.UpdateBalanceResponse) obj;
+
+      if (!getStatus()
+          .equals(other.getStatus())) return false;
+      if (hasUser() != other.hasUser()) return false;
+      if (hasUser()) {
+        if (!getUser()
+            .equals(other.getUser())) return false;
+      }
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getStatus().hashCode();
+      if (hasUser()) {
+        hash = (37 * hash) + USER_FIELD_NUMBER;
+        hash = (53 * hash) + getUser().hashCode();
+      }
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static usuario.Users.UpdateBalanceResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static usuario.Users.UpdateBalanceResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(usuario.Users.UpdateBalanceResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code usuario.UpdateBalanceResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:usuario.UpdateBalanceResponse)
+        usuario.Users.UpdateBalanceResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return usuario.Users.internal_static_usuario_UpdateBalanceResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return usuario.Users.internal_static_usuario_UpdateBalanceResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                usuario.Users.UpdateBalanceResponse.class, usuario.Users.UpdateBalanceResponse.Builder.class);
+      }
+
+      // Construct using usuario.Users.UpdateBalanceResponse.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        status_ = "";
+
+        if (userBuilder_ == null) {
+          user_ = null;
+        } else {
+          user_ = null;
+          userBuilder_ = null;
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return usuario.Users.internal_static_usuario_UpdateBalanceResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public usuario.Users.UpdateBalanceResponse getDefaultInstanceForType() {
+        return usuario.Users.UpdateBalanceResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public usuario.Users.UpdateBalanceResponse build() {
+        usuario.Users.UpdateBalanceResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public usuario.Users.UpdateBalanceResponse buildPartial() {
+        usuario.Users.UpdateBalanceResponse result = new usuario.Users.UpdateBalanceResponse(this);
+        result.status_ = status_;
+        if (userBuilder_ == null) {
+          result.user_ = user_;
+        } else {
+          result.user_ = userBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof usuario.Users.UpdateBalanceResponse) {
+          return mergeFrom((usuario.Users.UpdateBalanceResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(usuario.Users.UpdateBalanceResponse other) {
+        if (other == usuario.Users.UpdateBalanceResponse.getDefaultInstance()) return this;
+        if (!other.getStatus().isEmpty()) {
+          status_ = other.status_;
+          onChanged();
+        }
+        if (other.hasUser()) {
+          mergeUser(other.getUser());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                status_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 10
+              case 18: {
+                input.readMessage(
+                    getUserFieldBuilder().getBuilder(),
+                    extensionRegistry);
+
+                break;
+              } // case 18
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      private java.lang.Object status_ = "";
+      /**
+       * <code>string status = 1;</code>
+       * @return The status.
+       */
+      public java.lang.String getStatus() {
+        java.lang.Object ref = status_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          status_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @return The bytes for status.
+       */
+      public com.google.protobuf.ByteString
+          getStatusBytes() {
+        java.lang.Object ref = status_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          status_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @param value The status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatus(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStatus() {
+        
+        status_ = getDefaultInstance().getStatus();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string status = 1;</code>
+       * @param value The bytes for status to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStatusBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+
+      private usuario.Users.User user_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          usuario.Users.User, usuario.Users.User.Builder, usuario.Users.UserOrBuilder> userBuilder_;
+      /**
+       * <code>.usuario.User user = 2;</code>
+       * @return Whether the user field is set.
+       */
+      public boolean hasUser() {
+        return userBuilder_ != null || user_ != null;
+      }
+      /**
+       * <code>.usuario.User user = 2;</code>
+       * @return The user.
+       */
+      public usuario.Users.User getUser() {
+        if (userBuilder_ == null) {
+          return user_ == null ? usuario.Users.User.getDefaultInstance() : user_;
+        } else {
+          return userBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.usuario.User user = 2;</code>
+       */
+      public Builder setUser(usuario.Users.User value) {
+        if (userBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          user_ = value;
+          onChanged();
+        } else {
+          userBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.usuario.User user = 2;</code>
+       */
+      public Builder setUser(
+          usuario.Users.User.Builder builderForValue) {
+        if (userBuilder_ == null) {
+          user_ = builderForValue.build();
+          onChanged();
+        } else {
+          userBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.usuario.User user = 2;</code>
+       */
+      public Builder mergeUser(usuario.Users.User value) {
+        if (userBuilder_ == null) {
+          if (user_ != null) {
+            user_ =
+              usuario.Users.User.newBuilder(user_).mergeFrom(value).buildPartial();
+          } else {
+            user_ = value;
+          }
+          onChanged();
+        } else {
+          userBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.usuario.User user = 2;</code>
+       */
+      public Builder clearUser() {
+        if (userBuilder_ == null) {
+          user_ = null;
+          onChanged();
+        } else {
+          user_ = null;
+          userBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.usuario.User user = 2;</code>
+       */
+      public usuario.Users.User.Builder getUserBuilder() {
+        
+        onChanged();
+        return getUserFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.usuario.User user = 2;</code>
+       */
+      public usuario.Users.UserOrBuilder getUserOrBuilder() {
+        if (userBuilder_ != null) {
+          return userBuilder_.getMessageOrBuilder();
+        } else {
+          return user_ == null ?
+              usuario.Users.User.getDefaultInstance() : user_;
+        }
+      }
+      /**
+       * <code>.usuario.User user = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          usuario.Users.User, usuario.Users.User.Builder, usuario.Users.UserOrBuilder> 
+          getUserFieldBuilder() {
+        if (userBuilder_ == null) {
+          userBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              usuario.Users.User, usuario.Users.User.Builder, usuario.Users.UserOrBuilder>(
+                  getUser(),
+                  getParentForChildren(),
+                  isClean());
+          user_ = null;
+        }
+        return userBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:usuario.UpdateBalanceResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:usuario.UpdateBalanceResponse)
+    private static final usuario.Users.UpdateBalanceResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new usuario.Users.UpdateBalanceResponse();
+    }
+
+    public static usuario.Users.UpdateBalanceResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UpdateBalanceResponse>
+        PARSER = new com.google.protobuf.AbstractParser<UpdateBalanceResponse>() {
+      @java.lang.Override
+      public UpdateBalanceResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<UpdateBalanceResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UpdateBalanceResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public usuario.Users.UpdateBalanceResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_usuario_User_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_usuario_User_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_usuario_GetUsersRequest_descriptor;
+    internal_static_usuario_GetUserRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_usuario_GetUsersRequest_fieldAccessorTable;
+      internal_static_usuario_GetUserRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_usuario_GetUserResponse_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_usuario_GetUserResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_usuario_UpdateBalanceRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_usuario_UpdateBalanceRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_usuario_UpdateBalanceResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_usuario_UpdateBalanceResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1832,14 +3657,21 @@ public final class Users {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013users.proto\022\007usuario\"\027\n\004User\022\017\n\007user_i" +
-      "d\030\001 \001(\t\"\"\n\017GetUsersRequest\022\017\n\007user_id\030\001 " +
-      "\001(\005\"/\n\017GetUserResponse\022\034\n\005users\030\001 \003(\0132\r." +
-      "usuario.User2L\n\013UserService\022=\n\007GetUser\022\030" +
-      ".usuario.GetUsersRequest\032\030.usuario.GetUs" +
-      "erResponseBBZ@github.com/santig05/Distri" +
-      "buted-Systems-gRPC/libs/protobufs;userb\006" +
-      "proto3"
+      "\n\013users.proto\022\007usuario\"E\n\004User\022\017\n\007user_i" +
+      "d\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\r\n\005email\030\003 \001(\t\022\017\n\007" +
+      "balance\030\004 \001(\001\"!\n\016GetUserRequest\022\017\n\007user_" +
+      "id\030\001 \001(\005\"?\n\017GetUserResponse\022\016\n\006status\030\001 " +
+      "\001(\t\022\034\n\005users\030\002 \003(\0132\r.usuario.User\"<\n\024Upd" +
+      "ateBalanceRequest\022\017\n\007user_id\030\001 \001(\005\022\023\n\013ne" +
+      "w_balance\030\002 \001(\001\"D\n\025UpdateBalanceResponse" +
+      "\022\016\n\006status\030\001 \001(\t\022\033\n\004user\030\002 \001(\0132\r.usuario" +
+      ".User2\237\001\n\013UserService\022<\n\007GetUser\022\027.usuar" +
+      "io.GetUserRequest\032\030.usuario.GetUserRespo" +
+      "nse\022R\n\021UpdateUserBalance\022\035.usuario.Updat" +
+      "eBalanceRequest\032\036.usuario.UpdateBalanceR" +
+      "esponseBCZAgithub.com/santig005/Distribu" +
+      "ted-Systems-gRPC/libs/protobufs;userb\006pr" +
+      "oto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1850,19 +3682,31 @@ public final class Users {
     internal_static_usuario_User_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_usuario_User_descriptor,
-        new java.lang.String[] { "UserId", });
-    internal_static_usuario_GetUsersRequest_descriptor =
+        new java.lang.String[] { "UserId", "Name", "Email", "Balance", });
+    internal_static_usuario_GetUserRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_usuario_GetUsersRequest_fieldAccessorTable = new
+    internal_static_usuario_GetUserRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_usuario_GetUsersRequest_descriptor,
+        internal_static_usuario_GetUserRequest_descriptor,
         new java.lang.String[] { "UserId", });
     internal_static_usuario_GetUserResponse_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_usuario_GetUserResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_usuario_GetUserResponse_descriptor,
-        new java.lang.String[] { "Users", });
+        new java.lang.String[] { "Status", "Users", });
+    internal_static_usuario_UpdateBalanceRequest_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_usuario_UpdateBalanceRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_usuario_UpdateBalanceRequest_descriptor,
+        new java.lang.String[] { "UserId", "NewBalance", });
+    internal_static_usuario_UpdateBalanceResponse_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_usuario_UpdateBalanceResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_usuario_UpdateBalanceResponse_descriptor,
+        new java.lang.String[] { "Status", "User", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

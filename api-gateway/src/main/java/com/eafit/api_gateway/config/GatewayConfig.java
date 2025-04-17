@@ -16,7 +16,7 @@ import com.eafit.api_gateway.grpc.ProductServiceClient;
 import com.eafit.api_gateway.grpc.OrderServiceClient;
 import order.Order.OrderResponse;
 import product.Product.ProductResponse;
-import user.GetUserResponse;
+import usuario.Users.GetUserResponse;
 import com.google.protobuf.util.JsonFormat;
 
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -48,19 +48,25 @@ public class GatewayConfig {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
                 return builder.routes()
-                .route("user-service", r -> r.path("/api/users/{userId}").and().method("GET")
+                .route("user-service", r -> r.path("/api/users/**").and().method("GET")
                         .filters(f -> f.filter((exchange, chain) -> {
                             try {
-                                String userId = exchange.getAttribute("userId"); // Obtiene el ID del usuario de la ruta 
+                                String userId = exchange.getRequest().getPath().toString().split("/")[3]; // Obtiene el ID del usuario de la ruta 
                                 System.out.println("ID de usuario: " + userId);
+
+                                
                                 if(userId == null) {
                                     exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);
                                     return exchange.getResponse().setComplete();
                                 }
                                 GetUserResponse response = userServiceClient.getUser(userId);
+                                System.out.println("📦 gRPC user response proto object:");
+                System.out.println(response.toString());
 
-                                // Serializa el objeto a formato JSON
-                                String responseJson = JsonFormat.printer().print(response);
+                String responseJson = JsonFormat.printer().print(response);
+                System.out.println("🔸 Response JSON a enviar al cliente:");
+                System.out.println(responseJson);
+                // ————————————————————————————————
                                 
                                 exchange.getResponse().setStatusCode(HttpStatus.OK);
                                 exchange.getResponse().getHeaders().add("Content-Type", "application/json");
@@ -146,7 +152,6 @@ public class GatewayConfig {
             .path("/api/orders").and().method("POST")
             .filters(f -> f.filter((exchange, chain) -> {
                 System.out.println("entramos a post");
-                // 1) Leemos TODO el body como un DataBuffer
                 return DataBufferUtils.join(exchange.getRequest().getBody())
                   .flatMap(dataBuffer -> {
                     System.out.println("ya obtuvimos el cuerpo");
