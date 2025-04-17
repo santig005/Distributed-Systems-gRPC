@@ -1,4 +1,4 @@
-package com.eafit.api_gateway.grpc;
+/* package com.eafit.api_gateway.grpc;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
@@ -9,12 +9,8 @@ import org.springframework.stereotype.Service;
 // Importa las clases generadas por el compilador de proto
 import user.UserServiceGrpc;
 import user.GetUserResponse;
-
-
-
-
-
-import user.GetUsersRequest; // Ensure this matches the actual package and class name
+import usuario.UserServiceGrpc;
+import user.Users.GetUserRequest; // Ensure this matches the actual package and class name
 
 
 import jakarta.annotation.PostConstruct;
@@ -45,12 +41,15 @@ public class UserServiceClient {
     // Si el método en el proto es getUser, usa ese nombre
     public GetUserResponse getUser(String userId) {
         // Crea la solicitud usando el builder del proto
-        GetUsersRequest request = GetUsersRequest.newBuilder()
-                .setUserId(Integer.parseInt(userId)) // Asegúrate de que el tipo coincida con lo que espera el servicio
+        GetUserRequest request = GetUserRequest.newBuilder()
+                .setId(userId)
                 .build();
         // Realiza la llamada remota con el stub
-        return blockingStub.getUser(request);
+        return blockingStub.GetUser(request);
     }
 }
 
 
+
+
+ */
