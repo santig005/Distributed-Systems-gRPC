@@ -34,25 +34,35 @@ const productClient = new productProto.ProductService(
 // === Handlers gRPC ===
 
 function createOrderHandler(call, callback) {
-  const { user_id, product_ids } = call.request;
+  console.log("vamos a crear una order");
+  const { userId, productIds } = call.request;
+  console.log("user ");
+  console.log(userId);
+  console.log("product_ids");
+  console.log(productIds);
 
   Promise.all(
-    product_ids.map((id) => {
+    productIds.map(id => {
+      console.log("vamos a retornar esto");
+      console.log(id);
       return new Promise((resolve, reject) => {
         productClient.GetProduct({ id }, (err, product) => {
           if (err) {
             console.error(`❌ Error al obtener producto ${id}:`, err.message);
             return reject(new Error(`Producto con ID ${id} no disponible`));
           }
+          console.log("lets resolve");
           resolve(product);
+          console.log("resolved");
         });
       });
     })
   )
-    .then((productos) => {
+    .then(productos => {
+      console.log("entramos a then");
       const total = productos.reduce((acc, p) => acc + p.price, 0);
 
-      const orderData = { user_id, product_ids, total };
+      const orderData = { userId, productIds, total };
       const order = createOrder(orderData);
       callback(null, order);
     })
@@ -64,6 +74,7 @@ function createOrderHandler(call, callback) {
 function getOrderHandler(call, callback) {
   const order = getOrder(call.request.id);
   if (order) {
+    console.log("✔️ Enviando respuesta gRPC:", JSON.stringify(order));
     callback(null, order);
   } else {
     callback(new Error('Pedido no encontrado'));
