@@ -1,0 +1,26 @@
+[
+  {
+    "user_id": "1",
+    "name": "Alice",
+    "email": "alice@example.com",
+    "balance": 2801
+  },
+  {
+    "user_id": "2",
+    "name": "Bob",
+    "email": "bob@example.com",
+    "balance": 200.75
+  },
+  {
+    "user_id": "3",
+    "name": "Charlie",
+    "email": "charlie@example.com",
+    "balance": 300
+  },
+  {
+    "user_id": "4",
+    "name": "Diana",
+    "email": "diana@example.com",
+    "balance": 150.25
+  }
+]

@@ -1,14 +1,19 @@
 syntax = "proto3";
+
 package usuario;
 
-option go_package = "github.com/santig05/Distributed-Systems-gRPC/libs/protobufs;user";
+option go_package = "github.com/santig005/Distributed-Systems-gRPC/libs/protobufs;user";
 
 service UserService {
   rpc GetUser (GetUsersRequest) returns (GetUserResponse);
+  rpc UpdateUserBalance (UpdateBalanceRequest) returns (UpdateBalanceResponse);
 }
 
 message User {
   string user_id = 1;
+  string name = 2;
+  string email = 3;
+  double balance = 4;
 }
 
 message GetUsersRequest {
@@ -16,5 +21,16 @@ message GetUsersRequest {
 }
 
 message GetUserResponse {
-  repeated User users = 1;
+  string status = 1;
+  repeated User users = 2;
+}
+
+// New messages for updating the balance.
+message UpdateBalanceRequest {
+  int32 user_id = 1;
+  double new_balance = 2;
+}
+
+message UpdateBalanceResponse {
+  string status = 1;
 }

@@ -24,7 +24,7 @@ const products = {
     id: '1',
     name: 'Silla ergonómica',
     description: 'Ideal para oficina y largas jornadas de trabajo',
-    price: 199.99,
+    price: 199,
   },
   2: {
     id: '2',

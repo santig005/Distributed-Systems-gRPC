@@ -64,6 +64,7 @@ export function createOrder({ userId, productIds, total }) {
     return order;
 }
 
+// Retrieve an order by id.
 export function getOrder(id) {
     // Tus logs de depuración aquí (son útiles)
     console.log("las ordenes son ", orders);
