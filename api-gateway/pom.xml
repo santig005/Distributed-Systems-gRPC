@@ -39,10 +39,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency> -->
 
 		<dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -54,10 +50,6 @@
         <artifactId>spring-boot-starter</artifactId>
         <version>3.1.4</version> <!-- Replace with your desired version -->
     </dependency>
-		<!-- <dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-gateway-mvc</artifactId>
-		</dependency> -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,12 +70,6 @@
     </dependency>
 
 
-    <!-- <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-protobuf</artifactId>
-        <version>1.39.0</version>
-    </dependency> -->
-
 		<dependency>
         <groupId>com.google.protobuf</groupId>
         <artifactId>protobuf-java</artifactId>
@@ -94,20 +80,6 @@
 			<artifactId>protobuf-java-util</artifactId>
 			<version>3.25.1</version> <!-- Usa la versión adecuada a tu proyecto -->
 	</dependency>
-
-    <!-- <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-stub</artifactId>
-        <version>1.39.0</version>
-    </dependency> -->
-
-
-		<!-- <dependency>
-  <groupId>io.grpc</groupId>
-  <artifactId>grpc-netty-shaded</artifactId>
-  <version>1.71.0</version>
-  <scope>runtime</scope>
-</dependency> -->
 
 
 <dependency>
@@ -127,6 +99,24 @@
   <artifactId>annotations-api</artifactId>
   <version>6.0.53</version>
   <scope>provided</scope>
+</dependency>
+
+<!--Json dependency -->
+<dependency>
+    <groupId>org.json</groupId>
+    <artifactId>json</artifactId>
+    <version>20230227</version>
+</dependency>
+
+<!-- Jackson para JSON -->
+  <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+  </dependency>
+
+	<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-webflux</artifactId>
 </dependency>
 
 
