@@ -89,27 +89,27 @@ func (x *User) GetBalance() float64 {
 	return 0
 }
 
-type GetUsersRequest struct {
+type GetUserRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	UserId        int32                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetUsersRequest) Reset() {
-	*x = GetUsersRequest{}
+func (x *GetUserRequest) Reset() {
+	*x = GetUserRequest{}
 	mi := &file_libs_protobufs_users_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetUsersRequest) String() string {
+func (x *GetUserRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetUsersRequest) ProtoMessage() {}
+func (*GetUserRequest) ProtoMessage() {}
 
-func (x *GetUsersRequest) ProtoReflect() protoreflect.Message {
+func (x *GetUserRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_libs_protobufs_users_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -121,12 +121,12 @@ func (x *GetUsersRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetUsersRequest.ProtoReflect.Descriptor instead.
-func (*GetUsersRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetUserRequest.ProtoReflect.Descriptor instead.
+func (*GetUserRequest) Descriptor() ([]byte, []int) {
 	return file_libs_protobufs_users_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *GetUsersRequest) GetUserId() int32 {
+func (x *GetUserRequest) GetUserId() int32 {
 	if x != nil {
 		return x.UserId
 	}
@@ -241,6 +241,7 @@ func (x *UpdateBalanceRequest) GetNewBalance() float64 {
 type UpdateBalanceResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Status        string                 `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
+	User          *User                  `protobuf:"bytes,2,opt,name=user,proto3" json:"user,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -282,6 +283,13 @@ func (x *UpdateBalanceResponse) GetStatus() string {
 	return ""
 }
 
+func (x *UpdateBalanceResponse) GetUser() *User {
+	if x != nil {
+		return x.User
+	}
+	return nil
+}
+
 var File_libs_protobufs_users_proto protoreflect.FileDescriptor
 
 const file_libs_protobufs_users_proto_rawDesc = "" +
@@ -291,8 +299,8 @@ const file_libs_protobufs_users_proto_rawDesc = "" +
 	"\auser_id\x18\x01 \x01(\tR\x06userId\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
 	"\x05email\x18\x03 \x01(\tR\x05email\x12\x18\n" +
-	"\abalance\x18\x04 \x01(\x01R\abalance\"*\n" +
-	"\x0fGetUsersRequest\x12\x17\n" +
+	"\abalance\x18\x04 \x01(\x01R\abalance\")\n" +
+	"\x0eGetUserRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x05R\x06userId\"N\n" +
 	"\x0fGetUserResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x12#\n" +
@@ -300,11 +308,12 @@ const file_libs_protobufs_users_proto_rawDesc = "" +
 	"\x14UpdateBalanceRequest\x12\x17\n" +
 	"\auser_id\x18\x01 \x01(\x05R\x06userId\x12\x1f\n" +
 	"\vnew_balance\x18\x02 \x01(\x01R\n" +
-	"newBalance\"/\n" +
+	"newBalance\"R\n" +
 	"\x15UpdateBalanceResponse\x12\x16\n" +
-	"\x06status\x18\x01 \x01(\tR\x06status2\xa0\x01\n" +
-	"\vUserService\x12=\n" +
-	"\aGetUser\x12\x18.usuario.GetUsersRequest\x1a\x18.usuario.GetUserResponse\x12R\n" +
+	"\x06status\x18\x01 \x01(\tR\x06status\x12!\n" +
+	"\x04user\x18\x02 \x01(\v2\r.usuario.UserR\x04user2\x9f\x01\n" +
+	"\vUserService\x12<\n" +
+	"\aGetUser\x12\x17.usuario.GetUserRequest\x1a\x18.usuario.GetUserResponse\x12R\n" +
 	"\x11UpdateUserBalance\x12\x1d.usuario.UpdateBalanceRequest\x1a\x1e.usuario.UpdateBalanceResponseBCZAgithub.com/santig005/Distributed-Systems-gRPC/libs/protobufs;userb\x06proto3"
 
 var (
@@ -322,22 +331,23 @@ func file_libs_protobufs_users_proto_rawDescGZIP() []byte {
 var file_libs_protobufs_users_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_libs_protobufs_users_proto_goTypes = []any{
 	(*User)(nil),                  // 0: usuario.User
-	(*GetUsersRequest)(nil),       // 1: usuario.GetUsersRequest
+	(*GetUserRequest)(nil),        // 1: usuario.GetUserRequest
 	(*GetUserResponse)(nil),       // 2: usuario.GetUserResponse
 	(*UpdateBalanceRequest)(nil),  // 3: usuario.UpdateBalanceRequest
 	(*UpdateBalanceResponse)(nil), // 4: usuario.UpdateBalanceResponse
 }
 var file_libs_protobufs_users_proto_depIdxs = []int32{
 	0, // 0: usuario.GetUserResponse.users:type_name -> usuario.User
-	1, // 1: usuario.UserService.GetUser:input_type -> usuario.GetUsersRequest
-	3, // 2: usuario.UserService.UpdateUserBalance:input_type -> usuario.UpdateBalanceRequest
-	2, // 3: usuario.UserService.GetUser:output_type -> usuario.GetUserResponse
-	4, // 4: usuario.UserService.UpdateUserBalance:output_type -> usuario.UpdateBalanceResponse
-	3, // [3:5] is the sub-list for method output_type
-	1, // [1:3] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // 1: usuario.UpdateBalanceResponse.user:type_name -> usuario.User
+	1, // 2: usuario.UserService.GetUser:input_type -> usuario.GetUserRequest
+	3, // 3: usuario.UserService.UpdateUserBalance:input_type -> usuario.UpdateBalanceRequest
+	2, // 4: usuario.UserService.GetUser:output_type -> usuario.GetUserResponse
+	4, // 5: usuario.UserService.UpdateUserBalance:output_type -> usuario.UpdateBalanceResponse
+	4, // [4:6] is the sub-list for method output_type
+	2, // [2:4] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_libs_protobufs_users_proto_init() }

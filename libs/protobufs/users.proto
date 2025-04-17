@@ -5,7 +5,7 @@ package usuario;
 option go_package = "github.com/santig005/Distributed-Systems-gRPC/libs/protobufs;user";
 
 service UserService {
-  rpc GetUser (GetUsersRequest) returns (GetUserResponse);
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
   rpc UpdateUserBalance (UpdateBalanceRequest) returns (UpdateBalanceResponse);
 }
 
@@ -16,7 +16,7 @@ message User {
   double balance = 4;
 }
 
-message GetUsersRequest {
+message GetUserRequest {
   int32 user_id = 1;
 }
 
@@ -33,4 +33,6 @@ message UpdateBalanceRequest {
 
 message UpdateBalanceResponse {
   string status = 1;
+  User user = 2;
 }
+

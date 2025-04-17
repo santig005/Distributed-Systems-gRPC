@@ -88,54 +88,56 @@ func NewUserService() *UserService {
 
 // GetUser implements the user lookup logic for the service.
 // If req.UserId is non-zero, it searches for a matching user and returns it in a slice.
-func (s *UserService) GetUser(ctx context.Context, req *user.GetUsersRequest) ([]*user.User, error) {
-	fmt.Printf("GetUser called with user_id: %+v\n", req.UserId)
-	// Print all loaded user IDs
-	fmt.Print("Loaded user IDs: ")
-	for _, u := range s.users {
-		fmt.Printf("%s ", u.UserId)
-	}
-	fmt.Println()
-	if req.UserId != 0 {
-		targetID := strconv.Itoa(int(req.UserId))
-		for _, u := range s.users {
-			if u.UserId == targetID {
-				return []*user.User{u}, nil
-			}
-		}
-		return nil, fmt.Errorf("user with id %s not found", targetID)
-	}
-	// If no specific user is requested, return all users.
-	return s.users, nil
+// nueva firma que devuelve un solo usuario
+func (s *UserService) GetUser(ctx context.Context, req *user.GetUserRequest) (*user.User, error) {
+    fmt.Printf("GetUser called with user_id: %v\n", req.UserId)
+    if req.UserId == 0 {
+        return nil, fmt.Errorf("no user id provided")
+    }
+    targetID := strconv.Itoa(int(req.UserId))
+    for _, u := range s.users {
+        if u.UserId == targetID {
+            return u, nil
+        }
+    }
+    return nil, fmt.Errorf("user with id %s not found", targetID)
 }
+
 
 // UpdateUserBalance updates the balance of the user specified in the request.
 // After updating in memory, it saves the updated list back to the JSON file.
-func (s *UserService) UpdateUserBalance(ctx context.Context, req *user.UpdateBalanceRequest) error {
-	if req.UserId == 0 {
-		return fmt.Errorf("no user id provided")
-	}
-	targetID := strconv.Itoa(int(req.UserId))
-	for _, u := range s.users {
-		if u.UserId == targetID {
-			// Debug: print the current and new balance values.
-			fmt.Printf("Updating balance for user %s: current balance = %.2f, new balance = %.2f\n", targetID, u.Balance, req.NewBalance)
-			
-			u.Balance = req.NewBalance
-			
-			// Persist the updated user data to the JSON file.
-			if err := saveUsersToFile(s.users); err != nil {
-				return fmt.Errorf("failed to save updated balance: %v", err)
-			}
-			
-			// For debugging, you can also read back the file and log its content:
-			data, err := json.MarshalIndent(s.users, "", "  ")
-			if err == nil {
-				fmt.Println("Updated users data saved to file:", string(data))
-			}
-			
-			return nil
-		}
-	}
-	return fmt.Errorf("user with id %s not found", targetID)
+// import user "github.com/santig005/Distributed-Systems-gRPC/libs/protobufs"
+
+func (s *UserService) UpdateUserBalance(
+    ctx context.Context,
+    req *user.UpdateBalanceRequest,
+) (*user.UpdateBalanceResponse, error) {
+    if req.UserId == 0 {
+        return nil, fmt.Errorf("no user id provided")
+    }
+    targetID := strconv.Itoa(int(req.UserId))
+
+    for _, u := range s.users {
+        if u.UserId == targetID {
+            // Aquí u es *user.User, así que u.Balance sí existe.
+            fmt.Printf(
+                "Updating balance for user %s: current = %.2f, new = %.2f\n",
+                targetID, u.Balance, req.NewBalance,
+            )
+            u.Balance = req.NewBalance
+
+            if err := saveUsersToFile(s.users); err != nil {
+                return nil, fmt.Errorf("failed to save updated balance: %v", err)
+            }
+
+            // Devolvemos la respuesta completa incluyendo el usuario actualizado
+            return &user.UpdateBalanceResponse{
+                Status: "balance updated",
+                User:   u,
+            }, nil
+        }
+    }
+
+    return nil, fmt.Errorf("user with id %s not found", targetID)
 }
+

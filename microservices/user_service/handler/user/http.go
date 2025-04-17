@@ -34,53 +34,48 @@ func (h *UserHttpHandler) GetUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Intentamos parsear la petición JSON a la estructura GetUsersRequest.
-	var req user.GetUsersRequest
-	err := util.ParseJSON(r, &req)
-	if err != nil {
+	// Parseamos la petición a GetUsersRequest.
+	var req user.GetUserRequest
+	if err := util.ParseJSON(r, &req); err != nil {
 		util.WriteError(w, http.StatusBadRequest, err)
 		return
 	}
 
-	// Llamamos al servicio para obtener los usuarios usando el request parseado.
-	usersList, err := h.userService.GetUser(r.Context(), &req)
+	// Llamamos al servicio para obtener el usuario.
+	singleUser, err := h.userService.GetUser(r.Context(), &req)
 	if err != nil {
 		util.WriteError(w, http.StatusInternalServerError, err)
 		return
 	}
 
-	// Se arma la respuesta y se envía como JSON.
+	// Envolvemos el usuario en un slice para el campo repeated.
 	res := &user.GetUserResponse{
 		Status: "success",
-		Users:  usersList,
+		Users:  []*user.User{singleUser},
 	}
 	util.WriteJSON(w, http.StatusOK, res)
 }
 
-// UpdateBalance handles the HTTP request to update the user's balance.
+// UpdateBalance maneja la petición HTTP para actualizar el balance del usuario.
 func (h *UserHttpHandler) UpdateBalance(w http.ResponseWriter, r *http.Request) {
-	// Allow POST or PUT methods for updating balance.
-	if r.Method != http.MethodPost && r.Method != http.MethodPut {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
+    if r.Method != http.MethodPost && r.Method != http.MethodPut {
+        http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+        return
+    }
 
-	// Parse the JSON request into an UpdateBalanceRequest.
-	var req user.UpdateBalanceRequest
-	err := util.ParseJSON(r, &req)
-	if err != nil {
-		util.WriteError(w, http.StatusBadRequest, err)
-		return
-	}
+    var req user.UpdateBalanceRequest
+    if err := util.ParseJSON(r, &req); err != nil {
+        util.WriteError(w, http.StatusBadRequest, err)
+        return
+    }
 
-	// Call the service to update the user's balance.
-	err = h.userService.UpdateUserBalance(r.Context(), &req)
-	if err != nil {
-		util.WriteError(w, http.StatusInternalServerError, err)
-		return
-	}
+    // Ahora recibimos *user.UpdateBalanceResponse directamente
+    resp, err := h.userService.UpdateUserBalance(r.Context(), &req)
+    if err != nil {
+        util.WriteError(w, http.StatusInternalServerError, err)
+        return
+    }
 
-	// Return a success response.
-	res := map[string]string{"status": "balance updated"}
-	util.WriteJSON(w, http.StatusOK, res)
+    // Escribimos tal cual la respuesta del servicio
+    util.WriteJSON(w, http.StatusOK, resp)
 }

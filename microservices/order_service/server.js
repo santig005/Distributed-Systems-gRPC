@@ -109,7 +109,7 @@ function main() {
       if (err) {
         console.error(`❌ Error al obtener usuario:`, err.message);
       } else {
-        console.log("User fetched (test):", userResp["users"]);
+        console.log("User fetched (test):", userResp.users);
 
         // Only if the user is successfully fetched, call product service
         productClient.GetProduct({ id: "1" }, (err, product) => {
@@ -118,23 +118,32 @@ function main() {
           } else {
             console.log("Product fetched (test):", product);
             // Simulate logic: check if user balance covers product price and then create order.
-            if (userResp["users"][0]["balance"] - product.price > 0) {
+            const user = userResp.users[0];
+            if (user.balance - product.price > 0) {
               const orderData = {
-                user_id: userResp["users"][0]["userId"],
-                product_ids: ["1"], // Example: ordering product with ID "2"
+                user_id: user.userId,
+                product_ids: ["1"], // Example: ordering product with ID "1"
                 total: product.price
               };
               const order = createOrder(orderData);
               console.log("Order created (test):", order);
-              const newBalance = userResp["users"][0]["balance"] - product.price;
+
+              const newBalance = user.balance - product.price;
               // Test updating the user balance
-              userClient.UpdateUserBalance({ userId: 1, newBalance: newBalance }, (err, updateResp) => {
-                if (err) {
-                  console.error(`❌ Error updating user balance (test):`, err.message);
-                } else {
-                  console.log("User balance updated (test):", updateResp);
+              userClient.UpdateUserBalance(
+                { userId: 1, newBalance: newBalance },
+                (err, updateResp) => {
+                  if (err) {
+                    console.error(`❌ Error updating user balance (test):`, err.message);
+                  } else {
+                    // <-- New: print the full JSON response of the updated user
+                    console.log(
+                      "Updated user info (test):\n" +
+                        JSON.stringify(updateResp, null, 2)
+                    );
+                  }
                 }
-              });
+              );
             } else {
               console.error("Insufficient balance for product purchase (test).");
             }
