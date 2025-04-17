@@ -13,9 +13,18 @@ import org.springframework.http.HttpStatus;
 
 import com.eafit.api_gateway.grpc.UserServiceClient;
 import com.eafit.api_gateway.grpc.ProductServiceClient;
+import com.eafit.api_gateway.grpc.OrderServiceClient;
+import order.Order.OrderResponse;
 import product.Product.ProductResponse;
+import user.GetUserResponse;
 import com.google.protobuf.util.JsonFormat;
 
+import org.springframework.core.io.buffer.DataBufferUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.core.type.TypeReference;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Configuration
 public class GatewayConfig {
@@ -24,6 +33,8 @@ public class GatewayConfig {
     private UserServiceClient userServiceClient;
     @Autowired
     private ProductServiceClient productServiceClient;
+    @Autowired
+    private OrderServiceClient orderServiceClient;
     @Autowired
     private RabbitMQService rabbitMQService;
 
@@ -36,40 +47,26 @@ public class GatewayConfig {
 
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-
-        /* return builder.routes()
-                .route("user-service", r -> r.path("/api/users/**")
-                        .uri("http://localhost:9090")) // Cambia por la URL real
-                .build(); */
-
-
-                /* return builder.routes()
-                .route("user-service", r -> r.path("/api/users/**")
-                        .filters(f -> f.filter((exchange, chain) -> {
-                            // Simula una llamada al microservicio (aún no lo tienes, así que simulamos fallo)
-                            boolean microserviceDown = true; // Cambia esto cuando integres gRPC
-                            if (microserviceDown) {
-                                String requestBody = "Solicitud para /api/users/";
-                                rabbitMQService.sendToQueue(requestBody);
-                                exchange.getResponse().setStatusCode(HttpStatus.ACCEPTED);
-                                return exchange.getResponse().setComplete();
-                            }
-                            return chain.filter(exchange);
-                        }))
-                        .uri("http://localhost:9090"))
-                .build(); */
-
-                
                 return builder.routes()
-                .route("user-service", r -> r.path("/api/users/**")
+                .route("user-service", r -> r.path("/api/users/{userId}").and().method("GET")
                         .filters(f -> f.filter((exchange, chain) -> {
                             try {
-                                String userId = exchange.getRequest().getPath().toString().split("/")[3]; // Ejemplo: /api/users/1
+                                String userId = exchange.getAttribute("userId"); // Obtiene el ID del usuario de la ruta 
                                 System.out.println("ID de usuario: " + userId);
-                                String response = userServiceClient.getUser(userId);
+                                if(userId == null) {
+                                    exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);
+                                    return exchange.getResponse().setComplete();
+                                }
+                                GetUserResponse response = userServiceClient.getUser(userId);
+
+                                // Serializa el objeto a formato JSON
+                                String responseJson = JsonFormat.printer().print(response);
+                                
                                 exchange.getResponse().setStatusCode(HttpStatus.OK);
                                 exchange.getResponse().getHeaders().add("Content-Type", "application/json");
-                                return exchange.getResponse().writeWith(Mono.just(exchange.getResponse().bufferFactory().wrap(response.getBytes())));
+                                return exchange.getResponse().writeWith(
+                                    Mono.just(exchange.getResponse().bufferFactory().wrap(responseJson.getBytes()))
+                                );
                             } catch (Exception e) {
                                 String requestBody = exchange.getRequest().getPath().toString();
                                 rabbitMQService.sendToQueue("user-service-queue",requestBody);
@@ -110,11 +107,114 @@ public class GatewayConfig {
                             }
                         }))
                         .uri("no://op"))
-                .build();
+                        .route("order-service", r -> r.path("/api/orders/**").and().method("GET")
+                        .filters(f -> f.filter((exchange, chain) -> {
+                            try {
+                                String orderId = exchange.getRequest().getPath().toString().split("/")[3]; // Obtiene el ID del pedido de la ruta
+                                System.out.println("ID de pedido: " + orderId);
+                                if(orderId == null) {
+                                    exchange.getResponse().setStatusCode(HttpStatus.BAD_REQUEST);
+                                    return exchange.getResponse().setComplete();
+                                }
+                                System.out.println("Vamos a llamar al servicio de pedidos...");
+                                // Aquí deberías llamar al cliente gRPC para obtener la información del pedido
+                                OrderResponse response = orderServiceClient.getOrder(orderId);
+                                System.out.println("Respuesta del servicio de pedidos: " + response);
+                                // Serializa el objeto a formato JSON
+                                String responseJson = JsonFormat.printer().print(response);
+                                
+
+                                exchange.getResponse().setStatusCode(HttpStatus.OK);
+                                exchange.getResponse().getHeaders().add("Content-Type", "application/json");
+                                return exchange.getResponse().writeWith(
+                                    Mono.just(exchange.getResponse().bufferFactory().wrap(responseJson.getBytes()))
+                                );
+                            } catch (Exception e) {
+                                String requestBody = exchange.getRequest().getPath().toString();
+                                rabbitMQService.sendToQueue("order-service-queue",requestBody);
+                                System.out.println("se se envió a la cola de RabbitMQ: ");
+                                
+                                exchange.getResponse().setStatusCode(HttpStatus.ACCEPTED);
+                                exchange.getResponse().getHeaders().add("Content-Type", "application/json");
+                                return exchange.getResponse().writeWith(
+                                    Mono.just(exchange.getResponse().bufferFactory().wrap(errorJson.getBytes()))
+                                );
+                            }
+                        }))
+                        .uri("no://op"))
+			.route("order-service-create", r -> r
+            .path("/api/orders").and().method("POST")
+            .filters(f -> f.filter((exchange, chain) -> {
+                System.out.println("entramos a post");
+                // 1) Leemos TODO el body como un DataBuffer
+                return DataBufferUtils.join(exchange.getRequest().getBody())
+                  .flatMap(dataBuffer -> {
+                    System.out.println("ya obtuvimos el cuerpo");
+                      byte[] bytes = new byte[dataBuffer.readableByteCount()];
+                      dataBuffer.read(bytes);
+                      DataBufferUtils.release(dataBuffer);
+
+                      try {
+                        System.out.println("entramos en el try");
+                          // 2) Parseamos JSON de entrada
+                          ObjectMapper mapper = new ObjectMapper();
+                          JsonNode json = mapper.readTree(bytes);
+                          String userId = json.get("userId").asText();
+                          List<String> productIds = mapper.convertValue(
+                            json.get("productIds"),
+                            new TypeReference<List<String>>() {}
+                          );
+                          float total = (float) json.get("total").asDouble();
+                            System.out.println("otra vez aqui");
+                                // 3) Llamada gRPC a createOrder
+                                // 3) Llamada gRPC a createOrder
+                var response = orderServiceClient.createOrder(userId, productIds, total);
+
+                // ———————————  IMPRIME AQUÍ  ———————————
+                System.out.println("📦 gRPC createOrder response proto object:");
+                System.out.println(response.toString());
+
+                String responseJson = JsonFormat.printer().print(response);
+                System.out.println("🔸 Response JSON a enviar al cliente:");
+                System.out.println(responseJson);
+                // ——————————————————————————————————————————
+
+                
+                // 5) Respondemos con CREATED (201)
+                exchange.getResponse().setStatusCode(HttpStatus.CREATED);
+                exchange.getResponse().getHeaders().add("Content-Type", "application/json");
+                return exchange.getResponse().writeWith(
+                Mono.just(exchange.getResponse()
+                    .bufferFactory()
+                    .wrap(responseJson.getBytes()))
+                ).then(Mono.fromRunnable(() -> {
+                      System.out.println("Respuesta enviada exitosamente");
+                  }));
+
+                      } catch (Exception e) {
+                          // Encolamos la petición original y devolvemos accepted
+                          String body = new String(bytes, StandardCharsets.UTF_8);
+                          rabbitMQService.sendToQueue("order-service-queue", body);
+
+                          exchange.getResponse().setStatusCode(HttpStatus.ACCEPTED);
+                          exchange.getResponse().getHeaders().add("Content-Type", "application/json");
+                          return exchange.getResponse().writeWith(
+                            Mono.just(exchange.getResponse()
+                              .bufferFactory()
+                              .wrap(errorJson.getBytes(StandardCharsets.UTF_8)))
+                          );
+                      }
+                  });
+            }))
+            .uri("no://op"))
+                .build();   
     } 
     
-    
-    
+
+    @Bean
+    public Queue orderServiceQueue() {
+        return new Queue("order-service-queue", true);
+    }
     @Bean
     public Queue userServiceQueue() {
         return new Queue("user-service-queue", true);
