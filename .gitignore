@@ -1,2 +1,5 @@
 node_modules
 .idea
+microservices/order_service/orders.json
+microservices/order_service/logs/order_service.log
+microservices/user_service/users.json
