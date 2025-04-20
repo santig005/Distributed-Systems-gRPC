@@ -3,24 +3,24 @@
     "user_id": "1",
     "name": "Alice",
     "email": "alice@example.com",
-    "balance": 2403
+    "balance": 97359.5
   },
   {
     "user_id": "2",
     "name": "Bob",
     "email": "bob@example.com",
-    "balance": 200.75
+    "balance": 199552.25
   },
   {
     "user_id": "3",
     "name": "Charlie",
     "email": "charlie@example.com",
-    "balance": 300
+    "balance": 300000.5
   },
   {
     "user_id": "4",
     "name": "Diana",
     "email": "diana@example.com",
-    "balance": 150.25
+    "balance": 150000.25
   }
 ]
