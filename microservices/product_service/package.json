@@ -10,6 +10,7 @@
         "@grpc/grpc-js": "^1.8.0",
         "@grpc/proto-loader": "^0.7.5",
         "amqplib": "^0.10.7",
-        "dotenv": "^16.4.7"
+        "dotenv": "^16.4.7",
+        "winston": "^3.17.0"
     }
 }
