@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { createOrder, getOrder } from './orders.js';
+import logger from './logger.js';
 
 dotenv.config();
 
@@ -71,12 +72,10 @@ function updateUserBalanceHandler(userId, newBalance) {
 
 
 function createOrderHandler(call, callback) {
-  console.log('vamos a crear una order');
+  logger.info('Lests create an order');
   const { userId, productIds } = call.request;
-  console.log('user ');
-  console.log(userId);
-  console.log('product_ids');
-  console.log(productIds);
+  logger.info(`user: ${userId}`);
+  logger.info(`product_ids: ${productIds}`);
 
   let userIdInt;
   try {
@@ -96,23 +95,22 @@ function createOrderHandler(call, callback) {
 
   Promise.all(
     productIds.map((id) => {
-      console.log('vamos a retornar esto');
-      console.log(id);
+      logger.info(`Fetching product with ID: ${id}`);
       return new Promise((resolve, reject) => {
         productClient.GetProduct({ id }, (err, product) => {
           if (err) {
-            console.error(`❌ Error al obtener producto ${id}:`, err.message);
-            return reject(new Error(`Producto con ID ${id} no disponible`));
+            logger.error(`❌ Error fetching product ${id}: ${err.message}`);
+            return reject(new Error(`Product with ID ${id} is not available`));
           }
-          console.log('lets resolve');
+          logger.info(
+            `Product fetched successfully: ${JSON.stringify(product)}`
+          );
           resolve(product);
-          console.log('resolved');
         });
       });
     })
   )
     .then((productos) => {
-      console.log('entramos a then');
       const total = productos.reduce((acc, p) => acc + p.price, 0);
       // now we get the user info and update the balance
      getUserHandler(userIdInt).then((userResp) => {
@@ -155,10 +153,11 @@ function createOrderHandler(call, callback) {
 function getOrderHandler(call, callback) {
   const order = getOrder(call.request.id);
   if (order) {
-    console.log('✔️ Enviando respuesta gRPC:', JSON.stringify(order));
+    logger.info(`Sending gRPC response: ${JSON.stringify(order)}`);
     callback(null, order);
   } else {
-    callback(new Error('Pedido no encontrado'));
+    logger.error('Order not found');
+    callback(new Error('Order not found'));
   }
 }
 
@@ -172,7 +171,7 @@ function main() {
   });
 
   server.bindAsync(ADDRESS, grpc.ServerCredentials.createInsecure(), () => {
-    console.log(`🟢 OrderService escuchando en ${ADDRESS}`);
+    logger.info(`🟢 OrderService listening on ${ADDRESS}`);
     server.start();
   });
 }
