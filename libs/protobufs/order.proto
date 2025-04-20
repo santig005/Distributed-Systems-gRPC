@@ -21,4 +21,5 @@ message OrderResponse {
   string user_id = 2;
   repeated string product_ids = 3;
   string status = 4;
+  string total=5;
 }

@@ -54,12 +54,6 @@ public final class Order {
      */
     com.google.protobuf.ByteString
         getProductIdsBytes(int index);
-
-    /**
-     * <code>float total = 3;</code>
-     * @return The total.
-     */
-    float getTotal();
   }
   /**
    * Protobuf type {@code order.OrderRequest}
@@ -176,17 +170,6 @@ public final class Order {
       return productIds_.getByteString(index);
     }
 
-    public static final int TOTAL_FIELD_NUMBER = 3;
-    private float total_;
-    /**
-     * <code>float total = 3;</code>
-     * @return The total.
-     */
-    @java.lang.Override
-    public float getTotal() {
-      return total_;
-    }
-
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -206,9 +189,6 @@ public final class Order {
       }
       for (int i = 0; i < productIds_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, productIds_.getRaw(i));
-      }
-      if (java.lang.Float.floatToRawIntBits(total_) != 0) {
-        output.writeFloat(3, total_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -230,10 +210,6 @@ public final class Order {
         size += dataSize;
         size += 1 * getProductIdsList().size();
       }
-      if (java.lang.Float.floatToRawIntBits(total_) != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, total_);
-      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -253,9 +229,6 @@ public final class Order {
           .equals(other.getUserId())) return false;
       if (!getProductIdsList()
           .equals(other.getProductIdsList())) return false;
-      if (java.lang.Float.floatToIntBits(getTotal())
-          != java.lang.Float.floatToIntBits(
-              other.getTotal())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -273,9 +246,6 @@ public final class Order {
         hash = (37 * hash) + PRODUCT_IDS_FIELD_NUMBER;
         hash = (53 * hash) + getProductIdsList().hashCode();
       }
-      hash = (37 * hash) + TOTAL_FIELD_NUMBER;
-      hash = (53 * hash) + java.lang.Float.floatToIntBits(
-          getTotal());
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -408,8 +378,6 @@ public final class Order {
 
         productIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
-        total_ = 0F;
-
         return this;
       }
 
@@ -443,7 +411,6 @@ public final class Order {
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.productIds_ = productIds_;
-        result.total_ = total_;
         onBuilt();
         return result;
       }
@@ -506,9 +473,6 @@ public final class Order {
           }
           onChanged();
         }
-        if (other.getTotal() != 0F) {
-          setTotal(other.getTotal());
-        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -546,11 +510,6 @@ public final class Order {
                 productIds_.add(s);
                 break;
               } // case 18
-              case 29: {
-                total_ = input.readFloat();
-
-                break;
-              } // case 29
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -750,37 +709,6 @@ public final class Order {
   checkByteStringIsUtf8(value);
         ensureProductIdsIsMutable();
         productIds_.add(value);
-        onChanged();
-        return this;
-      }
-
-      private float total_ ;
-      /**
-       * <code>float total = 3;</code>
-       * @return The total.
-       */
-      @java.lang.Override
-      public float getTotal() {
-        return total_;
-      }
-      /**
-       * <code>float total = 3;</code>
-       * @param value The total to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTotal(float value) {
-        
-        total_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>float total = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearTotal() {
-        
-        total_ = 0F;
         onChanged();
         return this;
       }
@@ -1451,22 +1379,28 @@ public final class Order {
         getProductIdsBytes(int index);
 
     /**
-     * <code>float total = 4;</code>
-     * @return The total.
-     */
-    float getTotal();
-
-    /**
-     * <code>string status = 5;</code>
+     * <code>string status = 4;</code>
      * @return The status.
      */
     java.lang.String getStatus();
     /**
-     * <code>string status = 5;</code>
+     * <code>string status = 4;</code>
      * @return The bytes for status.
      */
     com.google.protobuf.ByteString
         getStatusBytes();
+
+    /**
+     * <code>string total = 5;</code>
+     * @return The total.
+     */
+    java.lang.String getTotal();
+    /**
+     * <code>string total = 5;</code>
+     * @return The bytes for total.
+     */
+    com.google.protobuf.ByteString
+        getTotalBytes();
   }
   /**
    * Protobuf type {@code order.OrderResponse}
@@ -1485,6 +1419,7 @@ public final class Order {
       userId_ = "";
       productIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       status_ = "";
+      total_ = "";
     }
 
     @java.lang.Override
@@ -1623,21 +1558,10 @@ public final class Order {
       return productIds_.getByteString(index);
     }
 
-    public static final int TOTAL_FIELD_NUMBER = 4;
-    private float total_;
-    /**
-     * <code>float total = 4;</code>
-     * @return The total.
-     */
-    @java.lang.Override
-    public float getTotal() {
-      return total_;
-    }
-
-    public static final int STATUS_FIELD_NUMBER = 5;
+    public static final int STATUS_FIELD_NUMBER = 4;
     private volatile java.lang.Object status_;
     /**
-     * <code>string status = 5;</code>
+     * <code>string status = 4;</code>
      * @return The status.
      */
     @java.lang.Override
@@ -1654,7 +1578,7 @@ public final class Order {
       }
     }
     /**
-     * <code>string status = 5;</code>
+     * <code>string status = 4;</code>
      * @return The bytes for status.
      */
     @java.lang.Override
@@ -1666,6 +1590,44 @@ public final class Order {
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
         status_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TOTAL_FIELD_NUMBER = 5;
+    private volatile java.lang.Object total_;
+    /**
+     * <code>string total = 5;</code>
+     * @return The total.
+     */
+    @java.lang.Override
+    public java.lang.String getTotal() {
+      java.lang.Object ref = total_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        total_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string total = 5;</code>
+     * @return The bytes for total.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTotalBytes() {
+      java.lang.Object ref = total_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        total_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1695,11 +1657,11 @@ public final class Order {
       for (int i = 0; i < productIds_.size(); i++) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, productIds_.getRaw(i));
       }
-      if (java.lang.Float.floatToRawIntBits(total_) != 0) {
-        output.writeFloat(4, total_);
-      }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, status_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, status_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(total_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, total_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1724,12 +1686,11 @@ public final class Order {
         size += dataSize;
         size += 1 * getProductIdsList().size();
       }
-      if (java.lang.Float.floatToRawIntBits(total_) != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, total_);
-      }
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(status_)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, status_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, status_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(total_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, total_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1752,11 +1713,10 @@ public final class Order {
           .equals(other.getUserId())) return false;
       if (!getProductIdsList()
           .equals(other.getProductIdsList())) return false;
-      if (java.lang.Float.floatToIntBits(getTotal())
-          != java.lang.Float.floatToIntBits(
-              other.getTotal())) return false;
       if (!getStatus()
           .equals(other.getStatus())) return false;
+      if (!getTotal()
+          .equals(other.getTotal())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1776,11 +1736,10 @@ public final class Order {
         hash = (37 * hash) + PRODUCT_IDS_FIELD_NUMBER;
         hash = (53 * hash) + getProductIdsList().hashCode();
       }
-      hash = (37 * hash) + TOTAL_FIELD_NUMBER;
-      hash = (53 * hash) + java.lang.Float.floatToIntBits(
-          getTotal());
       hash = (37 * hash) + STATUS_FIELD_NUMBER;
       hash = (53 * hash) + getStatus().hashCode();
+      hash = (37 * hash) + TOTAL_FIELD_NUMBER;
+      hash = (53 * hash) + getTotal().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1915,9 +1874,9 @@ public final class Order {
 
         productIds_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000001);
-        total_ = 0F;
-
         status_ = "";
+
+        total_ = "";
 
         return this;
       }
@@ -1953,8 +1912,8 @@ public final class Order {
           bitField0_ = (bitField0_ & ~0x00000001);
         }
         result.productIds_ = productIds_;
-        result.total_ = total_;
         result.status_ = status_;
+        result.total_ = total_;
         onBuilt();
         return result;
       }
@@ -2021,11 +1980,12 @@ public final class Order {
           }
           onChanged();
         }
-        if (other.getTotal() != 0F) {
-          setTotal(other.getTotal());
-        }
         if (!other.getStatus().isEmpty()) {
           status_ = other.status_;
+          onChanged();
+        }
+        if (!other.getTotal().isEmpty()) {
+          total_ = other.total_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -2070,13 +2030,13 @@ public final class Order {
                 productIds_.add(s);
                 break;
               } // case 26
-              case 37: {
-                total_ = input.readFloat();
+              case 34: {
+                status_ = input.readStringRequireUtf8();
 
                 break;
-              } // case 37
+              } // case 34
               case 42: {
-                status_ = input.readStringRequireUtf8();
+                total_ = input.readStringRequireUtf8();
 
                 break;
               } // case 42
@@ -2359,40 +2319,9 @@ public final class Order {
         return this;
       }
 
-      private float total_ ;
-      /**
-       * <code>float total = 4;</code>
-       * @return The total.
-       */
-      @java.lang.Override
-      public float getTotal() {
-        return total_;
-      }
-      /**
-       * <code>float total = 4;</code>
-       * @param value The total to set.
-       * @return This builder for chaining.
-       */
-      public Builder setTotal(float value) {
-        
-        total_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>float total = 4;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearTotal() {
-        
-        total_ = 0F;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object status_ = "";
       /**
-       * <code>string status = 5;</code>
+       * <code>string status = 4;</code>
        * @return The status.
        */
       public java.lang.String getStatus() {
@@ -2408,7 +2337,7 @@ public final class Order {
         }
       }
       /**
-       * <code>string status = 5;</code>
+       * <code>string status = 4;</code>
        * @return The bytes for status.
        */
       public com.google.protobuf.ByteString
@@ -2425,7 +2354,7 @@ public final class Order {
         }
       }
       /**
-       * <code>string status = 5;</code>
+       * <code>string status = 4;</code>
        * @param value The status to set.
        * @return This builder for chaining.
        */
@@ -2440,7 +2369,7 @@ public final class Order {
         return this;
       }
       /**
-       * <code>string status = 5;</code>
+       * <code>string status = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearStatus() {
@@ -2450,7 +2379,7 @@ public final class Order {
         return this;
       }
       /**
-       * <code>string status = 5;</code>
+       * <code>string status = 4;</code>
        * @param value The bytes for status to set.
        * @return This builder for chaining.
        */
@@ -2462,6 +2391,82 @@ public final class Order {
   checkByteStringIsUtf8(value);
         
         status_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object total_ = "";
+      /**
+       * <code>string total = 5;</code>
+       * @return The total.
+       */
+      public java.lang.String getTotal() {
+        java.lang.Object ref = total_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          total_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string total = 5;</code>
+       * @return The bytes for total.
+       */
+      public com.google.protobuf.ByteString
+          getTotalBytes() {
+        java.lang.Object ref = total_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          total_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string total = 5;</code>
+       * @param value The total to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTotal(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        total_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string total = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTotal() {
+        
+        total_ = getDefaultInstance().getTotal();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string total = 5;</code>
+       * @param value The bytes for total to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTotalBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        total_ = value;
         onChanged();
         return this;
       }
@@ -2553,16 +2558,15 @@ public final class Order {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\013order.proto\022\005order\"C\n\014OrderRequest\022\017\n\007" +
-      "user_id\030\001 \001(\t\022\023\n\013product_ids\030\002 \003(\t\022\r\n\005to" +
-      "tal\030\003 \001(\002\"\036\n\020OrderByIdRequest\022\n\n\002id\030\001 \001(" +
-      "\t\"`\n\rOrderResponse\022\n\n\002id\030\001 \001(\t\022\017\n\007user_i" +
-      "d\030\002 \001(\t\022\023\n\013product_ids\030\003 \003(\t\022\r\n\005total\030\004 " +
-      "\001(\002\022\016\n\006status\030\005 \001(\t2\203\001\n\014OrderService\0228\n\013" +
-      "CreateOrder\022\023.order.OrderRequest\032\024.order" +
-      ".OrderResponse\0229\n\010GetOrder\022\027.order.Order" +
-      "ByIdRequest\032\024.order.OrderResponseb\006proto" +
-      "3"
+      "\n\013order.proto\022\005order\"4\n\014OrderRequest\022\017\n\007" +
+      "user_id\030\001 \001(\t\022\023\n\013product_ids\030\002 \003(\t\"\036\n\020Or" +
+      "derByIdRequest\022\n\n\002id\030\001 \001(\t\"`\n\rOrderRespo" +
+      "nse\022\n\n\002id\030\001 \001(\t\022\017\n\007user_id\030\002 \001(\t\022\023\n\013prod" +
+      "uct_ids\030\003 \003(\t\022\016\n\006status\030\004 \001(\t\022\r\n\005total\030\005" +
+      " \001(\t2\203\001\n\014OrderService\0228\n\013CreateOrder\022\023.o" +
+      "rder.OrderRequest\032\024.order.OrderResponse\022" +
+      "9\n\010GetOrder\022\027.order.OrderByIdRequest\032\024.o" +
+      "rder.OrderResponseb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -2573,7 +2577,7 @@ public final class Order {
     internal_static_order_OrderRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_order_OrderRequest_descriptor,
-        new java.lang.String[] { "UserId", "ProductIds", "Total", });
+        new java.lang.String[] { "UserId", "ProductIds", });
     internal_static_order_OrderByIdRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_order_OrderByIdRequest_fieldAccessorTable = new
@@ -2585,7 +2589,7 @@ public final class Order {
     internal_static_order_OrderResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_order_OrderResponse_descriptor,
-        new java.lang.String[] { "Id", "UserId", "ProductIds", "Total", "Status", });
+        new java.lang.String[] { "Id", "UserId", "ProductIds", "Status", "Total", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

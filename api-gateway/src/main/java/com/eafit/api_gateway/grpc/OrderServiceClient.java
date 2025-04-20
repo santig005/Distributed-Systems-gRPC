@@ -37,11 +37,10 @@ public class OrderServiceClient {
     blockingStub = OrderServiceGrpc.newBlockingStub(this.channel);
   }
 
-  public OrderResponse createOrder(String userId, List<String> productIds, float total) {
+  public OrderResponse createOrder(String userId, List<String> productIds) {
     OrderRequest request = OrderRequest.newBuilder()
         .setUserId(userId)
         .addAllProductIds(productIds)
-        .setTotal(total)
         .build();
     return blockingStub.createOrder(request);
   }
