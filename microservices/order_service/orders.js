@@ -49,12 +49,13 @@ loadOrdersFromFile();
 // Exporta la variable (que ahora se actualiza)
 export const orders = ordersData;
 
-export function createOrder({ userId, productIds }) {
+export function createOrder({ userId, productIds,total }) {
   const id = String(Date.now());
   const order = {
     id,
     userId,
     productIds,
+    total,
     status: 'CREATED',
   };
   orders[id] = order;

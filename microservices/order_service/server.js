@@ -43,6 +43,33 @@ const userClient = new userProto.UserService(
   grpc.credentials.createInsecure()
 );
 
+function getUserHandler(userId) {
+  return new Promise((resolve, reject) => {
+    userClient.GetUser({ userId }, (err, response) => {
+      if (err) {
+        console.error(err);
+        return reject(err);
+      }
+      console.log('✔️ User fetched:', response);
+      resolve(response);
+    });
+  });
+}
+  
+function updateUserBalanceHandler(userId, newBalance) {
+  return new Promise((resolve, reject) => {
+    userClient.UpdateUserBalance({ userId, newBalance }, (err, response) => {
+      if (err) {
+        console.error(err);
+        return reject(err);
+      }
+      console.log('✔️ User balance updated:', response);
+      resolve(response);
+    });
+  });
+}
+
+
 function createOrderHandler(call, callback) {
   console.log('vamos a crear una order');
   const { userId, productIds } = call.request;
@@ -50,6 +77,22 @@ function createOrderHandler(call, callback) {
   console.log(userId);
   console.log('product_ids');
   console.log(productIds);
+
+  let userIdInt;
+  try {
+      // El  user_service (Go) espera un int32 para user_id
+      userIdInt = parseInt(userId, 10);
+      if (isNaN(userIdInt)) {
+          throw new Error("Invalid User ID format, must be a number.");
+      }
+  } catch (err) {
+      console.error(`❌ Invalid User ID format: ${userIdString}`, err);
+      return callback({
+          code: grpc.status.INVALID_ARGUMENT,
+          details: "Invalid User ID format, must be a number.",
+      });
+  }
+  console.log(`Processing order for User ID (int): ${userIdInt}, Product IDs: ${productIds.join(', ')}`);
 
   Promise.all(
     productIds.map((id) => {
@@ -71,14 +114,42 @@ function createOrderHandler(call, callback) {
     .then((productos) => {
       console.log('entramos a then');
       const total = productos.reduce((acc, p) => acc + p.price, 0);
-
-      const orderData = { userId, productIds };
-      const order = createOrder(orderData);
-      callback(null, order);
+      // now we get the user info and update the balance
+     getUserHandler(userIdInt).then((userResp) => {
+        const user = userResp.users[0];
+        console.log('userResp');
+        console.log(userResp);
+        console.log('user');  
+        console.log(userResp.users[0]);
+        if (!user) {
+          throw new Error(`Usuario con ID ${userIdInt} no encontrado`);
+        }
+        console.log('user balance');
+        console.log(user.balance);
+        console.log('total');
+        console.log(total);
+        if (user.balance < total) {
+          throw new Error(
+            `Saldo insuficiente para el pedido. Saldo actual: ${user.balance}, Total del pedido: ${total}`
+          );
+        }
+        console.log('vamos a actualizar el balance');
+        updateUserBalanceHandler(
+          userIdInt,
+          user.balance - total
+        ).then(() => {
+          console.log('balance actualizado');
+           const orderData = { userId, productIds,total };
+          const order = createOrder(orderData);
+          callback(null, order);
+        });
+     
     })
     .catch((err) => {
       callback(err);
     });
+});
+  console.log('salimos de createOrderHandler');
 }
 
 function getOrderHandler(call, callback) {
@@ -103,59 +174,6 @@ function main() {
   server.bindAsync(ADDRESS, grpc.ServerCredentials.createInsecure(), () => {
     console.log(`🟢 OrderService escuchando en ${ADDRESS}`);
     server.start();
-
-    // === First, test the user client call ===
-    userClient.GetUser({ userId: 1 }, (err, userResp) => {
-      if (err) {
-        console.error(`❌ Error al obtener usuario:`, err.message);
-      } else {
-        console.log('User fetched (test):', userResp.users);
-
-        // Only if the user is successfully fetched, call product service
-        productClient.GetProduct({ id: '1' }, (err, product) => {
-          if (err) {
-            console.error(`❌ Error al obtener producto (test):`, err.message);
-          } else {
-            console.log('Product fetched (test):', product);
-            // Simulate logic: check if user balance covers product price and then create order.
-            const user = userResp.users[0];
-            if (user.balance - product.price > 0) {
-              const orderData = {
-                user_id: user.userId,
-                product_ids: ['1'], // Example: ordering product with ID "1"
-                total: product.price,
-              };
-              const order = createOrder(orderData);
-              console.log('Order created (test):', order);
-
-              const newBalance = user.balance - product.price;
-              // Test updating the user balance
-              userClient.UpdateUserBalance(
-                { userId: 1, newBalance: newBalance },
-                (err, updateResp) => {
-                  if (err) {
-                    console.error(
-                      `❌ Error updating user balance (test):`,
-                      err.message
-                    );
-                  } else {
-                    // <-- New: print the full JSON response of the updated user
-                    console.log(
-                      'Updated user info (test):\n' +
-                        JSON.stringify(updateResp, null, 2)
-                    );
-                  }
-                }
-              );
-            } else {
-              console.error(
-                'Insufficient balance for product purchase (test).'
-              );
-            }
-          }
-        });
-      }
-    });
   });
 }
 
