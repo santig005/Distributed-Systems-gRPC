@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import logger from './logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,6 +17,7 @@ function loadOrdersFromFile() {
       const fileContent = fs.readFileSync(ordersFilePath, 'utf-8');
       ordersData = JSON.parse(fileContent);
       console.log('✔️ Datos de órdenes cargados desde orders.json');
+      logger.info('✔️ Datos de órdenes cargados desde orders.json');
     } else {
       console.warn(
         '⚠️ Archivo orders.json no encontrado, iniciando con datos vacíos.'

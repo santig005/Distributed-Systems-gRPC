@@ -1,0 +1,17 @@
+[2025-04-20T17:01:07.225Z] [INFO]: ✔️ Datos de órdenes cargados desde orders.json
+[2025-04-20T17:01:07.277Z] [INFO]: 🟢 OrderService escuchando en 0.0.0.0:50054
+[2025-04-20T17:45:47.340Z] [INFO]: ✔️ Datos de órdenes cargados desde orders.json
+[2025-04-20T17:45:47.392Z] [INFO]: 🟢 OrderService escuchando en 0.0.0.0:50054
+[2025-04-20T17:46:44.722Z] [INFO]: ✔️ Datos de órdenes cargados desde orders.json
+[2025-04-20T17:46:44.773Z] [INFO]: 🟢 OrderService escuchando en 0.0.0.0:50054
+[2025-04-20T17:46:44.794Z] [ERROR]: ❌ Error al obtener usuario:
+[2025-04-20T17:47:46.380Z] [INFO]: ✔️ Datos de órdenes cargados desde orders.json
+[2025-04-20T17:47:58.786Z] [INFO]: ✔️ Datos de órdenes cargados desde orders.json
+[2025-04-20T17:47:58.836Z] [INFO]: 🟢 OrderService escuchando en 0.0.0.0:50054
+[2025-04-20T17:47:58.858Z] [ERROR]: ❌ Error al obtener usuario: 14 UNAVAILABLE: No connection established. Last error: Error: connect ECONNREFUSED 127.0.0.1:9000
+[2025-04-20T17:56:48.278Z] [INFO]: ✔️ Datos de órdenes cargados desde orders.json
+[2025-04-20T17:56:48.328Z] [INFO]: 🟢 OrderService escuchando en 0.0.0.0:50054
+[2025-04-20T17:56:48.349Z] [ERROR]: ❌ Error al obtener usuario: 14 UNAVAILABLE: No connection established. Last error: Error: connect ECONNREFUSED 127.0.0.1:9000
+[2025-04-20T18:01:49.776Z] [INFO]: ✔️ Datos de órdenes cargados desde orders.json
+[2025-04-20T18:01:49.827Z] [INFO]: 🟢 OrderService listening on 0.0.0.0:50054
+[2025-04-20T18:01:49.848Z] [ERROR]: Error fetching user: 14 UNAVAILABLE: No connection established. Last error: Error: connect ECONNREFUSED 127.0.0.1:9000
