@@ -3,6 +3,7 @@ import protoLoader from '@grpc/proto-loader';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
+import logger from './logger.js';
 
 dotenv.config();
 
@@ -48,11 +49,16 @@ const products = {
 
 // Lógica del servicio
 function getProduct(call, callback) {
-  const product = products[call.request.id];
+  const productId = call.request.id;
+  logger.info(`Received request to fetch product with ID: ${productId}`);
+
+  const product = products[productId];
   if (product) {
+    logger.info(`Product found: ${JSON.stringify(product)}`);
     callback(null, product);
   } else {
-    callback(new Error('Producto no encontrado'));
+    logger.error(`Product with ID ${productId} not found`);
+    callback(new Error('Product not found'));
   }
 }
 
@@ -64,7 +70,7 @@ function main() {
   });
 
   server.bindAsync(ADDRESS, grpc.ServerCredentials.createInsecure(), () => {
-    console.log(`🟢 ProductService escuchando en ${ADDRESS}`);
+    logger.info(`🟢 ProductService is running and listening on ${ADDRESS}`);
     server.start();
   });
 }
