@@ -4,7 +4,7 @@
 
 *   **Jacobo Zuluaga Jaramillo:** `email2@example.com`
 *   **Santiago de Jesús Gómez Alzate:** `sjgomeza@eafit.edu.co`
-*   **Victor Jesús Villadiego Álvarez:** `email2@example.com`
+*   **Victor Jesús Villadiego Álvarez:** `vjvilladia@eafit.edu.co`
 
 ## Introducción
 
@@ -58,11 +58,21 @@ Consulte la [Wiki de Arquitectura](https://github.com/santig005/Distributed-Syst
 ├── tests/ # Scripts para pruebas E2E o de integración (opcional)
 ├── .gitignore
 └── README.md # Este archivo
+## Prerrequisitos
 
+Para ejecutar este proyecto, necesitarás tener instaladas las siguientes herramientas:
 
-## Instalación y Ejecución (Usando Docker Compose)
+*   **Docker y Docker Compose:** Únicamente para ejecutar RabbitMQ fácilmente. [Instalar Docker](https://www.docker.com/get-started).
+*   **Java JDK 17+:** Para el API Gateway.
+*   **Maven 3.8+:** Para construir y ejecutar el API Gateway.
+*   **Go (última versión estable):** Para el User Service.
+*   **Node.js (versión LTS recomendada):** Para el Order Service y Product Service.
+*   **Compilador `protoc`:** Necesario para generar los stubs gRPC si modificas los archivos `.proto`. Los plugins específicos para cada lenguaje también deben estar instalados ([Java gRPC](https://github.com/grpc/grpc-java#quick-start), [Go gRPC](https://grpc.io/docs/languages/go/quickstart/), [Node.js gRPC](https://grpc.io/docs/languages/node/quickstart/)).
+*   **Git:** Para clonar el repositorio.
 
-Esta es la forma recomendada para levantar todo el sistema fácilmente.
+## Configuración Inicial
+
+Antes de ejecutar los servicios, asegúrate de configurar correctamente las URLs y puertos.
 
 1.  **Clonar el repositorio:**
     ```bash
@@ -70,23 +80,88 @@ Esta es la forma recomendada para levantar todo el sistema fácilmente.
     cd <NOMBRE_DEL_REPOSITORIO>
     ```
 
-2.  **Construir e Iniciar los Contenedores:**
-    Desde la raíz del proyecto, ejecuta:
+2.  **Configurar URLs de Servicios:** Dado que los servicios correrán localmente en diferentes puertos, la comunicación entre ellos deberá usar `localhost` o `127.0.0.1`.
+    *   **API Gateway (`api-gateway/src/main/resources/application.yml`):** Ajusta las secciones `services.*.host` a `localhost` y verifica que los `port` coincidan con los puertos donde *realmente* correrán los microservicios. Asegúrate que `spring.rabbitmq.host` sea `localhost` si vas a correr RabbitMQ con el comando Docker de abajo.
+    *   **Order Service (`microservices/order_service/.env`):** Modifica `PRODUCT_SERVICE_URL`, `USER_SERVICE_URL` y `RABBITMQ_URL` para que apunten a `localhost:<puerto_correspondiente>`.
+    *   **Product Service (`microservices/product_service/.env`):** Asegúrate que exista y tenga la configuración de puerto correcta.
+    *   **User Service (`microservices/user_service/main.go`):** Verifica si las URLs de dependencias (si las tuviera) están configuradas (probablemente no llama a otros servicios).
+
+3.  **Generar Código gRPC (Si es la primera vez o modificaste .proto):**
+    *   **API Gateway (Java):**
+        ```bash
+        cd api-gateway
+        mvn clean generate-sources
+        cd ..
+        ```
+    *   **User Service (Go):**
+        ```bash
+        cd microservices/user_service
+        # Asegúrate que la ruta al proto sea correcta desde esta carpeta
+        protoc --go_out=. --go-grpc_out=. ../../libs/protobufs/users.proto
+        # Descarga/actualiza dependencias si cambiaste el proto
+        go mod tidy
+        cd ../..
+        ```
+    *   **(Node.js):** No requiere un paso explícito de generación, `protoLoader` carga el `.proto` en tiempo de ejecución.
+
+## Ejecución Manual de Servicios
+
+Deberás abrir múltiples terminales, una para cada servicio y una para RabbitMQ.
+
+1.  **Iniciar RabbitMQ (Usando Docker):**
+    En una terminal, ejecuta:
     ```bash
-    docker-compose -f deployments/docker-compose.yml up --build
+    docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
     ```
-    *   `--build` fuerza la reconstrucción de las imágenes si el código ha cambiado. La primera vez puede tardar varios minutos.
-    *   `-f deployments/docker-compose.yml` especifica la ubicación del archivo compose.
+    *   Esto descarga (si no existe) y ejecuta la imagen de RabbitMQ con la UI de administración expuesta en el puerto 15672.
+    *   Puedes acceder a la UI en `http://localhost:15672` (user: `guest`, pass: `guest`).
 
-3.  **Verificar:**
-    *   Observa los logs en la terminal. Deberías ver mensajes indicando que cada servicio (API Gateway, User, Product, Order, RabbitMQ) se ha iniciado correctamente y está escuchando en sus respectivos puertos.
-    *   Puedes acceder a la UI de RabbitMQ (si se expuso en `docker-compose.yml`, usualmente en `http://localhost:15672` con credenciales `guest`/`guest`).
-    *   Prueba los endpoints del API Gateway (ver sección "Uso / API Endpoints").
-
-4.  **Detener los Contenedores:**
-    Presiona `Ctrl + C` en la terminal donde ejecutaste `docker-compose up`. Para asegurarte de que los contenedores y redes se eliminan:
+2.  **Iniciar User Service (Go):**
+    En una nueva terminal:
     ```bash
-    docker-compose -f deployments/docker-compose.yml down
+    cd microservices/user_service
+    go run main.go
+    ```
+    *   Busca un mensaje indicando que el servidor gRPC está escuchando (probablemente en el puerto 50051).
+
+3.  **Iniciar Product Service (Node.js):**
+    En una nueva terminal:
+    ```bash
+    cd microservices/product_service
+    npm install # Solo la primera vez o si cambian las dependencias
+    npm start
+    ```
+    *   Busca un mensaje indicando que el servidor está escuchando (probablemente en el puerto 50053).
+
+4.  **Iniciar Order Service (Node.js):**
+    En una nueva terminal:
+    ```bash
+    cd microservices/order_service
+    npm install # Solo la primera vez o si cambian las dependencias
+    npm start
+    ```
+    *   Busca un mensaje indicando que el servidor gRPC está escuchando (probablemente en el puerto 50054) y que se conectó a RabbitMQ.
+
+5.  **Iniciar API Gateway (Java):**
+    En una nueva terminal:
+    ```bash
+    cd api-gateway
+    # (Opcional) Limpiar y construir si no lo hiciste antes
+    # mvn clean install -DskipTests
+    mvn spring-boot:run
+    ```
+    *   Busca el logo de Spring y mensajes indicando que la aplicación inició y está escuchando (probablemente en el puerto 8080).
+
+6.  **Verificar:**
+    *   Prueba los endpoints del API Gateway usando `curl` o Postman (ver sección "Uso / API Endpoints"). Asegúrate de usar `http://localhost:8080` (o el puerto configurado para el Gateway).
+
+7.  **Detener los Servicios:**
+    *   Para detener cada servicio Node.js, Go y Java, ve a su terminal respectiva y presiona `Ctrl + C`.
+    *   Para detener y eliminar el contenedor de RabbitMQ:
+        ```bash
+        docker stop rabbitmq
+        docker rm rabbitmq
+        ```
     ```
 
 ## Uso / API Endpoints (Expuestos por el API Gateway)
@@ -135,14 +210,18 @@ Consulta la [Documentación de la API](URL_A_LA_WIKI_API_DOCS) para ver detalles
 
 Puedes simular un fallo para ver el MOM en acción:
 
-1.  Inicia todo con `docker-compose -f deployments/docker-compose.yml up`.
-2.  Detén el servicio de usuarios: `docker-compose -f deployments/docker-compose.yml stop user_service`.
-3.  Intenta crear una orden usando el comando `curl` de arriba. Deberías recibir un `202 Accepted` del API Gateway.
-4.  Verifica los logs del `order_service`: `docker-compose -f deployments/docker-compose.yml logs order_service`. Verás un error al intentar contactar a `user_service`.
+## Demostración del Mecanismo de Failover
+
+Puedes simular un fallo para ver el MOM en acción:
+
+1.  Inicia todos los servicios como se describe en "Ejecución Manual".
+2.  Detén el **User Service** (presiona `Ctrl + C` en su terminal).
+3.  Intenta **crear una orden** usando `curl`. Deberías recibir un `202 Accepted` del API Gateway.
+4.  Verifica los **logs del Order Service** (en su terminal). Verás un error al intentar contactar `localhost:50051`.
 5.  (Opcional) Revisa la cola `order-service-queue` en la UI de RabbitMQ (`http://localhost:15672`). Debería haber un mensaje pendiente.
-6.  Inicia el servicio de usuarios nuevamente: `docker-compose -f deployments/docker-compose.yml start user_service`.
-7.  Observa los logs del `order_service` de nuevo. El consumidor debería recoger el mensaje de la cola, procesarlo exitosamente (ahora que `user_service` está disponible) y confirmar (`ack`) el mensaje.
-8.  Verifica que la orden se creó y el saldo del usuario se actualizó usando los endpoints GET correspondientes.
+6.  **Reinicia el User Service** (ejecuta `go run main.go` de nuevo en su terminal).
+7.  Observa los **logs del Order Service**. El consumidor debería recoger el mensaje, procesarlo (ahora User Service responde) y confirmar el mensaje.
+8.  **Verifica el estado final** (la orden existe, el saldo se actualizó) usando los endpoints GET.
 
 Consulta la [Wiki: Análisis de Funcionamiento](URL_A_LA_WIKI_ANALISIS) para una descripción más detallada de este proceso.
 
