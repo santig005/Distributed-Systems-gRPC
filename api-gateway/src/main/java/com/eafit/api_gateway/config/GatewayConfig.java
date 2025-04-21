@@ -153,8 +153,6 @@ public class GatewayConfig {
                                         OrderResponse response = orderServiceClient.createOrder(userId, productIds);
 
                                         String responseJson = JsonFormat.printer().print(response);
-                                        System.out.println("Response JSON to client: " + responseJson);
-
                                         exchange.getResponse().setStatusCode(HttpStatus.CREATED);
                                         exchange.getResponse().getHeaders().add("Content-Type", "application/json");
                                         return exchange.getResponse().writeWith(
