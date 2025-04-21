@@ -44,20 +44,6 @@ Consulte la [Wiki de Arquitectura](https://github.com/santig005/Distributed-Syst
 *   **Build Tools:** Maven (Java), Go Modules (Go), npm (Node.js)
 *   **Protocolos:** REST/HTTP, AMQP
 
-## Estructura del Proyecto
-├── api-gateway/ # Código fuente del API Gateway (Java/Spring)
-├── client/ # Ejemplo básico de cliente (opcional)
-├── deployments/ # Archivos de despliegue (docker-compose.yml)
-├── libs/ # Definiciones comunes
-│ └── protobufs/ # Archivos .proto para gRPC
-├── microservices/ # Código fuente de los microservicios
-│ ├── order_service/ # Servicio de Órdenes (Node.js)
-│ ├── product_service/# Servicio de Productos (Node.js)
-│ └── user_service/ # Servicio de Usuarios (Go)
-├── mom/ # (Vacío actualmente, podría contener config específica de MOM si crece)
-├── tests/ # Scripts para pruebas E2E o de integración (opcional)
-├── .gitignore
-└── README.md # Este archivo
 ## Prerrequisitos
 
 Para ejecutar este proyecto, necesitarás tener instaladas las siguientes herramientas:
@@ -76,8 +62,8 @@ Antes de ejecutar los servicios, asegúrate de configurar correctamente las URLs
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone <URL_DEL_REPOSITORIO>
-    cd <NOMBRE_DEL_REPOSITORIO>
+    git clone https://github.com/santig005/Distributed-Systems-gRPC
+    cd Distributed-Systems-gRPC
     ```
 
 2.  **Configurar URLs de Servicios:** Dado que los servicios correrán localmente en diferentes puertos, la comunicación entre ellos deberá usar `localhost` o `127.0.0.1`.
