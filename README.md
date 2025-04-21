@@ -2,7 +2,7 @@
 
 ## Integrantes
 
-*   **Jacobo Zuluaga Jaramillo:** `email2@example.com`
+*   **Jacobo Zuluaga Jaramillo:** `jzuluagaj@eafit.edu.co`
 *   **Santiago de Jesús Gómez Alzate:** `sjgomeza@eafit.edu.co`
 *   **Victor Jesús Villadiego Álvarez:** `vjvilladia@eafit.edu.co`
 
