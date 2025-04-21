@@ -190,7 +190,7 @@ Asumiendo que el API Gateway corre en `http://localhost:8080` (verifica `applica
     ```
     *Ejemplo:* `curl http://localhost:8080/api/orders-user/1`
 
-Consulta la [Documentación de la API](URL_A_LA_WIKI_API_DOCS) para ver detalles completos de request/response y códigos de error.
+Consulta la [Documentación de la API](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Documentaci%C3%B3n-de-API) para ver detalles completos de request/response y códigos de error.
 
 
 ## Demostración del Mecanismo de Failover
