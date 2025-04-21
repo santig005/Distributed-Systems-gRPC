@@ -76,6 +76,37 @@ public final class OrderServiceGrpc {
     return getGetOrderMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<order.Order.OrdersByUserIdRequest,
+      order.Order.OrdersListResponse> getGetOrdersByUserIdMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetOrdersByUserId",
+      requestType = order.Order.OrdersByUserIdRequest.class,
+      responseType = order.Order.OrdersListResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<order.Order.OrdersByUserIdRequest,
+      order.Order.OrdersListResponse> getGetOrdersByUserIdMethod() {
+    io.grpc.MethodDescriptor<order.Order.OrdersByUserIdRequest, order.Order.OrdersListResponse> getGetOrdersByUserIdMethod;
+    if ((getGetOrdersByUserIdMethod = OrderServiceGrpc.getGetOrdersByUserIdMethod) == null) {
+      synchronized (OrderServiceGrpc.class) {
+        if ((getGetOrdersByUserIdMethod = OrderServiceGrpc.getGetOrdersByUserIdMethod) == null) {
+          OrderServiceGrpc.getGetOrdersByUserIdMethod = getGetOrdersByUserIdMethod =
+              io.grpc.MethodDescriptor.<order.Order.OrdersByUserIdRequest, order.Order.OrdersListResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetOrdersByUserId"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  order.Order.OrdersByUserIdRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  order.Order.OrdersListResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new OrderServiceMethodDescriptorSupplier("GetOrdersByUserId"))
+              .build();
+        }
+      }
+    }
+    return getGetOrdersByUserIdMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -138,6 +169,13 @@ public final class OrderServiceGrpc {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetOrderMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void getOrdersByUserId(order.Order.OrdersByUserIdRequest request,
+        io.grpc.stub.StreamObserver<order.Order.OrdersListResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetOrdersByUserIdMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -154,6 +192,13 @@ public final class OrderServiceGrpc {
                 order.Order.OrderByIdRequest,
                 order.Order.OrderResponse>(
                   this, METHODID_GET_ORDER)))
+          .addMethod(
+            getGetOrdersByUserIdMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                order.Order.OrdersByUserIdRequest,
+                order.Order.OrdersListResponse>(
+                  this, METHODID_GET_ORDERS_BY_USER_ID)))
           .build();
     }
   }
@@ -187,6 +232,14 @@ public final class OrderServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetOrderMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getOrdersByUserId(order.Order.OrdersByUserIdRequest request,
+        io.grpc.stub.StreamObserver<order.Order.OrdersListResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetOrdersByUserIdMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -215,6 +268,13 @@ public final class OrderServiceGrpc {
     public order.Order.OrderResponse getOrder(order.Order.OrderByIdRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetOrderMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public order.Order.OrdersListResponse getOrdersByUserId(order.Order.OrdersByUserIdRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetOrdersByUserIdMethod(), getCallOptions(), request);
     }
   }
 
@@ -247,10 +307,19 @@ public final class OrderServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetOrderMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<order.Order.OrdersListResponse> getOrdersByUserId(
+        order.Order.OrdersByUserIdRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetOrdersByUserIdMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_ORDER = 0;
   private static final int METHODID_GET_ORDER = 1;
+  private static final int METHODID_GET_ORDERS_BY_USER_ID = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -276,6 +345,10 @@ public final class OrderServiceGrpc {
         case METHODID_GET_ORDER:
           serviceImpl.getOrder((order.Order.OrderByIdRequest) request,
               (io.grpc.stub.StreamObserver<order.Order.OrderResponse>) responseObserver);
+          break;
+        case METHODID_GET_ORDERS_BY_USER_ID:
+          serviceImpl.getOrdersByUserId((order.Order.OrdersByUserIdRequest) request,
+              (io.grpc.stub.StreamObserver<order.Order.OrdersListResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -340,6 +413,7 @@ public final class OrderServiceGrpc {
               .setSchemaDescriptor(new OrderServiceFileDescriptorSupplier())
               .addMethod(getCreateOrderMethod())
               .addMethod(getGetOrderMethod())
+              .addMethod(getGetOrdersByUserIdMethod())
               .build();
         }
       }

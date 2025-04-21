@@ -13,6 +13,7 @@ import com.eafit.api_gateway.grpc.UserServiceClient;
 import com.eafit.api_gateway.grpc.ProductServiceClient;
 import com.eafit.api_gateway.grpc.OrderServiceClient;
 import order.Order.OrderResponse;
+import order.Order.OrdersListResponse;
 import product.Product.ProductResponse;
 import usuario.Users.GetUserResponse;
 import com.google.protobuf.util.JsonFormat;
@@ -171,6 +172,38 @@ public class GatewayConfig {
                                 });
                         }))
                         .uri("no://op"))
+                        .route("orders-by-user-id", r -> r.path("/api/orders-user/**").and().method("GET")
+                    .filters(f -> f.filter((exchange, chain) -> {
+                        try {
+                            // Extraer userId de la ruta
+                            String userId = exchange.getRequest().getPath().toString().split("/")[3];
+                            System.out.println("GET /api/orders-user - ID de usuario: " + userId);
+                            if (userId == null || userId.trim().isEmpty()) {
+                                return errorHandler.writeErrorResponse(exchange, HttpStatus.BAD_REQUEST, "Se requiere ID de usuario.");
+                            }
+                            // Llamar al nuevo método del cliente gRPC
+                            OrdersListResponse response = orderServiceClient.getOrdersByUserId(userId);
+
+                            // Convertir la respuesta (que contiene la lista) a JSON
+                            String responseJson = JsonFormat.printer().print(response);
+                            System.out.println("Response JSON (" + response.getOrdersCount() + " orders) to client: " + responseJson);
+
+                            exchange.getResponse().setStatusCode(HttpStatus.OK);
+                            exchange.getResponse().getHeaders().add("Content-Type", "application/json");
+                            return exchange.getResponse().writeWith(
+                                    Mono.just(exchange.getResponse().bufferFactory().wrap(responseJson.getBytes(StandardCharsets.UTF_8)))
+                            );
+
+                        } catch (StatusRuntimeException e) {
+                            System.err.println("gRPC Error en GetOrdersByUserId: " + e.getStatus());
+                            // Delegar al manejador de errores (no necesita encolado para GET)
+                            return errorHandler.handleGrpcError(exchange, e, "order-service-queue"); // O pasar null como queue si no se quiere encolar nunca para GET
+                        } catch (Exception e) {
+                            System.err.println("Error inesperado en GetOrdersByUserId: " + e.getMessage());
+                            return errorHandler.writeErrorResponse(exchange, HttpStatus.INTERNAL_SERVER_ERROR, "Error interno procesando la solicitud de órdenes por usuario.");
+                        }
+                    }))
+                    .uri("no://op")) 
                         .build();   
     } 
     
