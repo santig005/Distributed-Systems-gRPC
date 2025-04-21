@@ -5,6 +5,7 @@ package order;
 service OrderService {
   rpc CreateOrder (OrderRequest) returns (OrderResponse);
   rpc GetOrder (OrderByIdRequest) returns (OrderResponse);
+  rpc GetOrdersByUserId (OrdersByUserIdRequest) returns (OrdersListResponse);
 }
 
 message OrderRequest {
@@ -16,10 +17,19 @@ message OrderByIdRequest {
   string id = 1;
 }
 
+message OrdersByUserIdRequest {
+  string user_id = 1;
+}
+
+
 message OrderResponse {
   string id = 1;
   string user_id = 2;
   repeated string product_ids = 3;
   string status = 4;
   string total=5;
+}
+
+message OrdersListResponse {
+ repeated OrderResponse orders = 1; 
 }

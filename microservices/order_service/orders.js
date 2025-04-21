@@ -77,3 +77,27 @@ export function getOrder(id) {
   // Devuelve la orden correspondiente al ID solicitado
   return orders[id] || null; // Retorna null si no se encuentra
 }
+
+export function getOrdersByUserId(userIdToFind) {
+  logger.info(`Buscando órdenes para el usuario ID: ${userIdToFind}`);
+  const userOrders = Object.values(ordersData) // Obtener todos los objetos de orden
+    .filter(order => {
+      // Manejar la inconsistencia userId vs user_id al filtrar
+      const orderUserId = order.userId || order.user_id;
+      return orderUserId === userIdToFind;
+    })
+    .map(order => {
+      // Mapear cada orden encontrada al formato de OrderResponse
+      return {
+        id: order.id,
+        user_id: order.userId || order.user_id,
+        product_ids: order.productIds || order.product_ids,
+        status: order.status,
+        // Asegurar que total sea número
+        total: typeof order.total === 'string' ? parseFloat(order.total) : order.total
+      };
+    }); // Filtrar por el campo userId o user_id
+
+  logger.info(`Encontradas ${userOrders.length} órdenes para el usuario ${userIdToFind}`);
+  return userOrders; // Devuelve un array de objetos de orden
+}

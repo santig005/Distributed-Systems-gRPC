@@ -3,7 +3,7 @@ import protoLoader from '@grpc/proto-loader';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { createOrder, getOrder } from './orders.js';
+import { createOrder, getOrder,getOrdersByUserId   } from './orders.js';
 import amqp from 'amqplib';
 import logger from './logger.js';
 
@@ -55,31 +55,6 @@ const userClient = new userProto.UserService(
   grpc.credentials.createInsecure()
 );
 
-function getUserHandler(userId) {
-  return new Promise((resolve, reject) => {
-    userClient.GetUser({ userId }, (err, response) => {
-      if (err) {
-        console.error(err);
-        return reject(err);
-      }
-      console.log('✔️ User fetched:', response);
-      resolve(response);
-    });
-  });
-}
-  
-function updateUserBalanceHandler(userId, newBalance) {
-  return new Promise((resolve, reject) => {
-    userClient.UpdateUserBalance({ userId, newBalance }, (err, response) => {
-      if (err) {
-        console.error(err);
-        return reject(err);
-      }
-      console.log('✔️ User balance updated:', response);
-      resolve(response);
-    });
-  });
-}
 
 
 // === gRPC Handlers ===
@@ -157,6 +132,37 @@ function getOrderHandler(call, callback) {
   return callback(null, order);
 }
 
+function getOrdersByUserIdHandler(call, callback) {
+  console.log('Entrando a getOrdersByUserIdHandler...');
+  console.log('Request:', call.request); // Log de la solicitud recibida
+  const userId = call.request.userId; // Obtener de OrdersByUserIdRequest
+  logger.info(`➡️ Handling GetOrdersByUserId request for user ID: ${userId}`);
+
+  if (!userId) {
+    logger.error('❌ Bad Request: Missing user_id in GetOrdersByUserId');
+    return callback({
+      code: grpc.status.INVALID_ARGUMENT,
+      message: "Se requiere user_id.",
+    });
+  }
+
+  try {
+    const userOrders = getOrdersByUserId(userId); // Llamar a la función de filtrado
+    logger.info(`✅ Found ${userOrders.length} orders for user ${userId}`);
+
+    // Crear la respuesta proto OrdersListResponse
+    const response = { orders: userOrders }; // 'orders' es el nombre del campo repeated en el proto
+
+    callback(null, response); // Enviar la lista de órdenes
+  } catch (error) {
+    logger.error(`❌ Error fetching orders for user ${userId}: ${error.message}`, error);
+    callback({
+      code: grpc.status.INTERNAL,
+      message: "Error interno al obtener las órdenes del usuario.",
+    });
+  }
+}
+
 // === RabbitMQ Consumer ===
 
 async function startRabbitMQConsumer() {
@@ -225,6 +231,7 @@ function main() {
   server.addService(orderProto.OrderService.service, {
     CreateOrder: createOrderHandler,
     GetOrder:    getOrderHandler,
+    GetOrdersByUserId: getOrdersByUserIdHandler,
   });
 
   server.bindAsync(ADDRESS, grpc.ServerCredentials.createInsecure(), (err) => {

@@ -2,14 +2,13 @@ package com.eafit.api_gateway.grpc;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import order.OrderServiceGrpc;
-import order.Order.OrderRequest;
-import order.Order.OrderResponse;
-import order.Order.OrderByIdRequest;
+import order.Order.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
@@ -61,11 +60,30 @@ public class OrderServiceClient {
       return null; // Handle this appropriately in your application
     }
   }
+  public OrdersListResponse getOrdersByUserId(String userId) {
+        System.out.println("Fetching orders for User ID: " + userId);
+        OrdersByUserIdRequest request = OrdersByUserIdRequest.newBuilder()
+                .setUserId(userId)
+                .build();
+        try {
+            OrdersListResponse response = blockingStub.getOrdersByUserId(request);
+            System.out.println("Received " + response.getOrdersCount() + " orders for user " + userId);
+            return response;
+        } catch (StatusRuntimeException e) {
+            System.err.println("gRPC Error while fetching orders for user " + userId + ": " + e.getStatus());
+            // Re-lanzar para que el gateway lo maneje
+            throw e;
+        } catch (Exception e) {
+             System.err.println("Unexpected error while fetching orders for user " + userId + ": " + e.getMessage());
+             e.printStackTrace();
+              throw new StatusRuntimeException(io.grpc.Status.INTERNAL.withDescription("Error inesperado en cliente gRPC getOrdersByUserId"));
+        }
+    }
 
-  /* @PreDestroy
+  @PreDestroy
   public void shutdown() {
     if (channel!= null) {
-      System.out.println("Shutting down gRPC channel...");
+      System.out.println("Shutting down order gRPC channel...");
       try {
         channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
         System.out.println("gRPC channel shut down successfully.");
@@ -74,5 +92,5 @@ public class OrderServiceClient {
         Thread.currentThread().interrupt(); // Restore the interrupted status
       }
     }
-  } */
+  }
 }

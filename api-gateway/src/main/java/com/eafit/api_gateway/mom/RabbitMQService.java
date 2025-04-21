@@ -1,7 +1,9 @@
 package com.eafit.api_gateway.mom;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import jakarta.annotation.PostConstruct;
@@ -25,5 +27,17 @@ public class RabbitMQService {
         } catch (Exception e) {
             System.err.println("Error al enviar mensaje a RabbitMQ: " + e.getMessage());
         }
+    }
+     @Bean
+    public Queue orderServiceQueue() {
+        return new Queue("order-service-queue", true);
+    }
+    @Bean
+    public Queue userServiceQueue() {
+        return new Queue("user-service-queue", true);
+    }
+    @Bean
+    public Queue productServiceQueue() {
+        return new Queue("product-service-queue", true);
     }
 }
