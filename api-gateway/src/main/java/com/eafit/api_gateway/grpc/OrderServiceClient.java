@@ -46,13 +46,10 @@ public class OrderServiceClient {
 
   public OrderResponse getOrder(String orderId) {
     try {
-      System.out.println("Order ID: " + orderId);
       OrderByIdRequest request = OrderByIdRequest.newBuilder()
         .setId(orderId)
         .build();
-        System.out.println("Request: " + request.toString());
       OrderResponse o= blockingStub.getOrder(request);
-      System.out.println("Response: " + o.toString());
       return o;
     } catch (Exception e) {
       System.err.println("Error while fetching order: " + e.getMessage());
@@ -61,13 +58,12 @@ public class OrderServiceClient {
     }
   }
   public OrdersListResponse getOrdersByUserId(String userId) {
-        System.out.println("Fetching orders for User ID: " + userId);
         OrdersByUserIdRequest request = OrdersByUserIdRequest.newBuilder()
                 .setUserId(userId)
                 .build();
         try {
             OrdersListResponse response = blockingStub.getOrdersByUserId(request);
-            System.out.println("Received " + response.getOrdersCount() + " orders for user " + userId);
+            System.out.println("Recibidass " + response.getOrdersCount() + " ordenes para usuario " + userId);
             return response;
         } catch (StatusRuntimeException e) {
             System.err.println("gRPC Error while fetching orders for user " + userId + ": " + e.getStatus());
