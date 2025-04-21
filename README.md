@@ -206,7 +206,6 @@ Puedes simular un fallo para ver el MOM en acción:
 7.  Observa los **logs del Order Service**. El consumidor debería recoger el mensaje, procesarlo (ahora User Service responde) y confirmar el mensaje.
 8.  **Verifica el estado final** (la orden existe, el saldo se actualizó) usando los endpoints GET.
 
-Consulta la [Wiki: Análisis de Funcionamiento](URL_A_LA_WIKI_ANALISIS) para una descripción más detallada de este proceso.
 
 
 
@@ -215,6 +214,6 @@ Consulta la [Wiki: Análisis de Funcionamiento](URL_A_LA_WIKI_ANALISIS) para una
 *   [Requerimientos](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Requerimientos)
 *   [Arquitectura del Sistema](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Arquitectura-del-sistema)
 *   [Documentación de la API REST](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Documentaci%C3%B3n-de-API)
-*   [Configuración y Despliegue Detallado](https://github.com/santig005/Distributed-Systems-gRPC/wiki/deployment)
+*   [Configuración y Despliegue Detallado](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Despliegue)
 *   [Mecanismo de Failover (MOM)](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Mecanismo-de-Failover)
 
