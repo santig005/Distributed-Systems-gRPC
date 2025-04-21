@@ -192,9 +192,6 @@ Asumiendo que el API Gateway corre en `http://localhost:8080` (verifica `applica
 
 Consulta la [Documentación de la API](URL_A_LA_WIKI_API_DOCS) para ver detalles completos de request/response y códigos de error.
 
-## Demostración del Mecanismo de Failover
-
-Puedes simular un fallo para ver el MOM en acción:
 
 ## Demostración del Mecanismo de Failover
 
@@ -211,21 +208,13 @@ Puedes simular un fallo para ver el MOM en acción:
 
 Consulta la [Wiki: Análisis de Funcionamiento](URL_A_LA_WIKI_ANALISIS) para una descripción más detallada de este proceso.
 
-## Testing
 
-El proyecto incluye (o debería incluir) diferentes niveles de pruebas:
-
-*   **Pruebas Unitarias:** En cada microservicio y el gateway. Ejecutar con `mvn test`, `go test ./...`, `npm test`.
-*   **Pruebas de Integración/E2E:** (Potencialmente scripts en `/tests`).
-
-Consulta la [Wiki: Estrategia de Pruebas](URL_A_LA_WIKI_TESTING) para más detalles.
 
 ## Documentación Adicional (Wiki)
 
-*   [Requerimientos](URL_A_LA_WIKI_REQUERIMIENTOS)
-*   [Arquitectura del Sistema](URL_A_LA_WIKI_ARQUITECTURA)
-*   [Documentación de la API REST](URL_A_LA_WIKI_API_DOCS)
-*   [Configuración y Despliegue Detallado](URL_A_LA_WIKI_SETUP)
-*   [Mecanismo de Failover (MOM)](URL_A_LA_WIKI_FAILOVER)
-*   [Estrategia de Pruebas y Análisis](URL_A_LA_WIKI_TESTING)
+*   [Requerimientos](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Requerimientos)
+*   [Arquitectura del Sistema](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Arquitectura-del-sistema)
+*   [Documentación de la API REST](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Documentaci%C3%B3n-de-API)
+*   [Configuración y Despliegue Detallado](https://github.com/santig005/Distributed-Systems-gRPC/wiki/deployment)
+*   [Mecanismo de Failover (MOM)](https://github.com/santig005/Distributed-Systems-gRPC/wiki/Mecanismo-de-Failover)
 
